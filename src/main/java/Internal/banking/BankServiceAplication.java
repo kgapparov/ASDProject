@@ -10,28 +10,17 @@ import javax.swing.*;
 
 public class BankServiceAplication extends AccountServiceApplicationFactory {
     @Override
+    public void init(EnvironmentType envType) {
+        setEnvType(envType);
+    }
+
+    @Override
     public void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service) {
         form.setCommand(0, new DepositCommand(service));
         form.setCommand(1, new WidthdrawCommand(service));
         form.setCommand(2, new AddInterestCommand(service));
     }
 
-    @Override
-    public Account createAccount(AccountType type, String accountNumber, String customerName) {
-
-        Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
-
-        if (customer != null) {
-            Account account = new Account(customer, accountNumber, balance -> 1.2, "GOLD");
-            //TODO set interest value depending on type of account
-            getStorage().getAccountDAO().saveAccount(account);
-            for (Account acc : getStorage().getAccountDAO().getAccounts()) {
-                System.out.println(acc.getCustomer().getClientName() +  " " + acc.getAccountNumber());
-            }
-            return account;
-        }
-        return null;
-    }
 
     public static void main(String[] args) {
         try {
@@ -48,7 +37,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
             ApplicationFrm form = new ApplicationFrm();
             AccountServiceApplicationFactory service = new BankServiceAplication();
             service.createCommands(form, service);
-            service.setEnvType(EnvironmentType.MEMORY);
+            service.init(EnvironmentType.MEMORY);
             form.setAccountService(service);
             form.setVisible(true);
         }

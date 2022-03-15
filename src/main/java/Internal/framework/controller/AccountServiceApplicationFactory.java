@@ -3,11 +3,8 @@ package Internal.framework.controller;
 import Internal.framework.dataAccess.AccountDAO;
 import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
+import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
-import Internal.framework.module.ActionType;
-import Internal.framework.module.Observer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,7 +45,21 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     }
     public abstract void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service);
 
-    public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
+    public abstract void init(EnvironmentType envType);
+
+    public  Account createAccount(AccountType type, String accountNumber, String customerName){
+            Customer customer = getStorage().getCustomerDAO().loadCustomer(customerName);
+            if (customer != null) {
+                Account account = new Account(customer, accountNumber, balance -> 0.0, "GOLD");
+                //TODO set interest value depending on type of account
+                getStorage().getAccountDAO().saveAccount(account);
+                for (Account acc : getStorage().getAccountDAO().getAccounts()) {
+                    System.out.println(acc.getCustomer().getClientName() +  " " + acc.getAccountNumber());
+                }
+                return account;
+            }
+            return null;
+    }
 
     @Override
     public Account getAccount(String accountNumber) {
