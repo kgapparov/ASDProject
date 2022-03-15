@@ -1,16 +1,21 @@
 package Internal.framework.ui;
 
+import Internal.framework.module.Account;
+import Internal.framework.module.CommandInterface;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JDialog_Deposit extends JDialog
 {
-    
-
     private ApplicationFrm parentframe;
     private String accnr;
-    
-	public JDialog_Deposit(ApplicationFrm parent, String aaccnr)
+
+
+
+	public JDialog_Deposit(ApplicationFrm parent, String aaccnr, CommandInterface command)
 	{
 		super(parent);
 		parentframe=parent;
@@ -21,7 +26,7 @@ public class JDialog_Deposit extends JDialog
 		// what Visual Cafe can generate, or Visual Cafe may be unable to back
 		// parse your Java file into its visual environment.
 		//{{INIT_CONTROLS
-		setTitle("Deposit");
+		setTitle(command.getTitle());
 		setModal(true);
 		getContentPane().setLayout(null);
 		setSize(268,126);
@@ -84,6 +89,10 @@ public class JDialog_Deposit extends JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
+		if (parentframe.accountnr != null) {
+			parentframe.getCommand(0).setParams(parentframe.accountnr, parentframe.amountDeposit);
+			parentframe.getCommand(0).execute();
+		}
         dispose();
 	}
 
