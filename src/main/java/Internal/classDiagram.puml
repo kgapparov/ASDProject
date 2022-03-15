@@ -8,7 +8,7 @@ interface AccountService {
     +addInterest();
 }
 
-abstract AccountServiceFactory{
+abstract AccountServiceApplicationFactory{
     +{abstract}createAccount();
     +deposit();
     +withdrow();
@@ -43,7 +43,7 @@ class EmailObserver
 Observer --> Subject
 EmailObserver ..|> Observer
 
-AccountServiceFactory --> Subject
+AccountServiceApplicationFactory --> Subject
 abstract Interest
 class CheckingInterest
 class SavingInterest
@@ -61,20 +61,20 @@ class SavingInterestHighState
 SavingInterestHighState ..|> InterestState
 SavingInterestLowState ..|> InterestState
 SavingInterestMidState ..|> InterestState
+'
+'class CheckingInterestLowState
+'class CheckingInterestMidState
+'class CheckingInterestHighState
+'CheckingInterestHighState ..|> InterestState
+'CheckingInterestLowState ..|> InterestState
+'CheckingInterestMidState ..|> InterestState
 
-class CheckingInterestLowState
-class CheckingInterestMidState
-class CheckingInterestHighState
-CheckingInterestHighState ..|> InterestState
-CheckingInterestLowState ..|> InterestState
-CheckingInterestMidState ..|> InterestState
-
-AccountServiceFactory ..|> AccountService
+AccountServiceApplicationFactory ..|> AccountService
 Account --> Interest
-AccountServiceImpl --|> AccountServiceFactory
-CCardServiceImpl --|> AccountServiceFactory
+AccountServiceImpl --|> AccountServiceApplicationFactory
+CCardServiceImpl --|> AccountServiceApplicationFactory
 
-AccountServiceFactory ..> ProductFactory
-Account <-- AccountServiceFactory
+AccountServiceApplicationFactory ..> ProductFactory
+Account <-- AccountServiceApplicationFactory
 
 @enduml
