@@ -13,10 +13,11 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         super.setEnvType(EnvironmentType.MEMORY);
 
         //setInterest type
-        Customer customer = super.getStorage().getCustomer().loadCustomer(customerName);
+        Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
         if (customer != null) {
             Account account = new Account(customer, accountNumber);
             //TODO set interest value depending on type of account
+            getStorage().getAccountDAO().saveAccount(account);
             return account;
         }
         return null;
