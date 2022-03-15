@@ -1,32 +1,50 @@
 package Internal.framework.module;
 
+import Internal.framework.controller.intereststate.LowInterestState;
+import Internal.framework.controller.intereststate.MidInterestState;
+import Internal.framework.controller.intereststate.State;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Account {
+public abstract class Account {
+    private  AccountType accountType;
     private Customer customer;
 
     private String accountNumber;
 
-    private String accountType;
+    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
-    private List<AccountEntry> entryList = new ArrayList<>();
-
-    private Interest interest;
-
-    public Account(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public Account(Customer customer, String accountNumber, Interest interest, String accountType) {
+    public Account(Customer customer, String accountNumber, InterestCalculator interest, AccountType accountType) {
         this.customer = customer;
         this.accountNumber = accountNumber;
         this.interest = interest;
         this.accountType = accountType;
     }
 
-    public void setInterest(Interest interest) {
+
+    public InterestCalculator getInterest() {
+        return interest;
+    }
+
+    private InterestCalculator interest;
+
+    public Account(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public Account(InterestCalculator interestCalculator) {
+        this.interest = interestCalculator;
+    }
+
+    public Account(Customer customer, String accountNumber,InterestCalculator interest) {
+        this.customer = customer;
+        this.accountNumber = accountNumber;
+        this.interest = interest;
+    }
+
+    public void setInterest(InterestCalculator interest) {
         this.interest = interest;
     }
 
@@ -47,16 +65,13 @@ public class Account {
     }
 
     public void addInterest() {
-        double balance = getBalance();
-        double intRate = 0;
-        if (interest != null) {
-            intRate = interest.getInterest(balance);
+        double interstAmt =0;
+         if (interest != null) {
+            interstAmt = interest.calculateInterest(this);
         }
-        balance *= (intRate/100);
-        deposit(balance);
+        AccountEntry entry = new AccountEntry(interstAmt, "interest", "", "");
+        entryList.add(entry);
     }
-
-    public Interest getInterest() { return interest; }
 
     public void deposit(double amount) {
         AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
@@ -94,4 +109,10 @@ public class Account {
     public List<AccountEntry> getEntryList() {
         return entryList;
     }
+
+    public abstract String getAccountType();
+
+
+
+    ;
 }

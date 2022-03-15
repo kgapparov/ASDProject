@@ -47,19 +47,8 @@ public abstract class AccountServiceApplicationFactory implements AccountService
 
     public abstract void init(EnvironmentType envType);
 
-    public  Account createAccount(AccountType type, String accountNumber, String customerName){
-            Customer customer = getStorage().getCustomerDAO().loadCustomer(customerName);
-            if (customer != null) {
-                Account account = new Account(customer, accountNumber, balance -> 0.0, "GOLD");
-                //TODO set interest value depending on type of account
-                getStorage().getAccountDAO().saveAccount(account);
-                for (Account acc : getStorage().getAccountDAO().getAccounts()) {
-                    System.out.println(acc.getCustomer().getClientName() +  " " + acc.getAccountNumber());
-                }
-                return account;
-            }
-            return null;
-    }
+    public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
+
 
     @Override
     public Account getAccount(String accountNumber) {
