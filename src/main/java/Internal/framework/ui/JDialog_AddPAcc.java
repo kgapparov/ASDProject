@@ -4,6 +4,8 @@ package Internal.framework.ui;
 */
 
 import Internal.framework.module.AccountType;
+import Internal.framework.module.Customer;
+import Internal.framework.module.Individual;
 
 import javax.swing.*;
 import java.awt.*;
@@ -183,8 +185,16 @@ public class JDialog_AddPAcc extends JDialog
        if (JRadioButton_Chk.isSelected())
            parentframe.accountType= AccountType.CHECKING;
            else
-           parentframe.accountType= AccountType.CHECKING;
+           parentframe.accountType= AccountType.SAVING;
 	   parentframe.newaccount=true;
+	   Customer newCustomer = new Individual();
+	   newCustomer.setStreet(parentframe.street);
+	   newCustomer.setZip(parentframe.zip);
+	   newCustomer.setCity(parentframe.city);
+	   newCustomer.setState(parentframe.state);
+	   newCustomer.setClientName(parentframe.clientName);
+	   parentframe.getAccountService().getStorage().getCustomerDAO().saveCustomer(newCustomer);
+	   parentframe.getAccountService().createAccount(parentframe.accountType, parentframe.accountnr, parentframe.clientName);
        dispose();
 	}
 

@@ -5,6 +5,7 @@ import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
+import Internal.framework.ui.ApplicationFrm;
 
 import java.util.Collection;
 
@@ -34,10 +35,12 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     public void setEnvType(EnvironmentType envType) {
         if (envType == EnvironmentType.MEMORY) {
             storage = new MemoryStorageFactory();
+            accountDAO = storage.getAccountDAO();
         } else {
             storage = null;
         }
     }
+    public abstract void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service);
 
     public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
 

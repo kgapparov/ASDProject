@@ -17,14 +17,10 @@ abstract AccountServiceApplicationFactory{
     +getAccount();
 }
 
-abstract Interest {
-    +{abstract}getInterest();
-}
-
-interface ProductFactory {
-    +createAccount();
-    +createNotifyer();
-    +createInterest();
+interface StorageFactory {
+    +createAccountDAO();
+    +createCustomerDAO();
+    +createAccountEntryDAO();
 }
 'new Account product with subclasses
 abstract Account
@@ -44,37 +40,23 @@ Observer --> Subject
 EmailObserver ..|> Observer
 
 AccountServiceApplicationFactory --> Subject
-abstract Interest
-class CheckingInterest
-class SavingInterest
 
-CheckingInterest --|> Interest
-SavingInterest --|> Interest
-
-interface InterestState
-InterestState <-* Interest
-
-
+abstract class InterestState {
+    +getInterest();
+}
 class SavingInterestLowState
 class SavingInterestMidState
 class SavingInterestHighState
 SavingInterestHighState ..|> InterestState
 SavingInterestLowState ..|> InterestState
 SavingInterestMidState ..|> InterestState
-'
-'class CheckingInterestLowState
-'class CheckingInterestMidState
-'class CheckingInterestHighState
-'CheckingInterestHighState ..|> InterestState
-'CheckingInterestLowState ..|> InterestState
-'CheckingInterestMidState ..|> InterestState
 
+InterestState <-* Account
 AccountServiceApplicationFactory ..|> AccountService
-Account --> Interest
 AccountServiceImpl --|> AccountServiceApplicationFactory
 CCardServiceImpl --|> AccountServiceApplicationFactory
 
-AccountServiceApplicationFactory ..> ProductFactory
+AccountServiceApplicationFactory ..> StorageFactory
 Account <-- AccountServiceApplicationFactory
 
 @enduml
