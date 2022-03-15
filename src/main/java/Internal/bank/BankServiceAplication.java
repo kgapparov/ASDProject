@@ -13,6 +13,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         super.setEnvType(EnvironmentType.MEMORY);
 
         //setInterest type
+        //My checking test for github lifecycle.
         Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
         if (customer != null) {
             Account account = new Account(customer, accountNumber);
