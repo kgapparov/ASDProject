@@ -4,8 +4,8 @@ public class CreditCardAccount extends Account {
     private MinimumPaymentStrategy minimumPaymentStrategy;
     private String expireDate;
 
-    public CreditCardAccount(Customer customer, String accountNumber, Interest interest,
-                             MinimumPaymentStrategy minimumPaymentStrategy, String type) {
+    public CreditCardAccount(Customer customer, String accountNumber, InterestCalculator interest,
+                             MinimumPaymentStrategy minimumPaymentStrategy, AccountType type) {
         super(customer, accountNumber, interest, type);
         this.minimumPaymentStrategy = minimumPaymentStrategy;
     }
@@ -15,4 +15,9 @@ public class CreditCardAccount extends Account {
     public MinimumPaymentStrategy getMinimumPaymentStrategy() { return minimumPaymentStrategy; }
 
     public void setExpireDate(String expireDate) { this.expireDate = expireDate; }
+
+    @Override
+    public String getAccountType() {
+        return null;
+    }
 }

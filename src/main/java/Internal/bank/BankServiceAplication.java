@@ -1,5 +1,7 @@
-package Internal.banking;
+package Internal.bank;
 
+import Internal.bank.CheckingAccount;
+import Internal.bank.SavingAccount;
 import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
@@ -31,6 +33,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             }
             catch (Exception e) {
+                e.printStackTrace();
             }
 
             //Create a new instance of our application's frame, and make it visible.
@@ -46,5 +49,38 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
             //Ensure the application exits with an error condition.
             System.exit(1);
         }
+
+
     }
+
+    @Override
+    public Account createAccount(AccountType type, String accountNumber, String customerName) {
+        //setup environment
+        super.setEnvType(EnvironmentType.MEMORY);
+
+        //setInterest type
+        Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
+        if (customer != null) {
+            Account account;
+            //TODO set interest value depending on type of account
+            if (customer instanceof Individual) {
+                if (type == AccountType.CHECKING) {
+                    //account.setInterest(new PersonalCheckingInterestCalculator());
+                    return new CheckingAccount(customer, accountNumber);
+
+                }
+                //  account.setInterest(new PersonalSavingInterestCalculator());
+                return new SavingAccount(customer, accountNumber);
+            }
+            if (type == AccountType.CHECKING) {
+                return new CheckingAccount(customer, accountNumber);
+            }
+            return new SavingAccount(customer, accountNumber);
+        }
+
+        return null;
+
+    }
+
+
 }

@@ -23,7 +23,7 @@ public class MonthlyAccountReportFactory extends ReportFactory {
         double totalCharges = 0.0;
         double totalCredits = 0.0;
         double newBalance = 0.0;
-        double paymentInterestRate = account.getInterest().getInterest(previousBalance);
+        //double paymentInterestRate = account.getInterest().getInterest(previousBalance);
         double totalDue = totalCredits * totalCredits;
         MonthlyAccountReport monthlyAccountReport = new MonthlyAccountReport(account.getCustomer().getClientName(),
                 account.getCustomer().getClientName(), account.getBalance(), "Monthly Report", LocalDate.now(),

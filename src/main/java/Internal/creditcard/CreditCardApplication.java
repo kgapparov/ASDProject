@@ -16,4 +16,9 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
     public void init(EnvironmentType envType) {
 
     }
+
+    @Override
+    public Account createAccount(AccountType type, String accountNumber, String customerName) {
+        return null;
+    }
 }
