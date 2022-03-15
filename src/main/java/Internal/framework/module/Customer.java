@@ -26,6 +26,10 @@ public abstract class Customer {
         this.clientName = clientName;
     }
 
+    public String getClientEmail() {
+        return email;
+    }
+
     public CustomerType getCustomerType() {
         return customerType;
     }

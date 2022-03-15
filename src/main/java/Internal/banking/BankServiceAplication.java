@@ -1,10 +1,9 @@
-package Internal.bank;
+package Internal.banking;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.Customer;
+import Internal.framework.dataAccess.ReportFactory;
+import Internal.framework.module.*;
 
 public class BankServiceAplication extends AccountServiceApplicationFactory {
     @Override
@@ -15,7 +14,12 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         //setInterest type
         Customer customer = super.getStorage().getCustomer().loadCustomer(customerName);
         if (customer != null) {
-            Account account = new Account(customer, accountNumber);
+            Account account = new Account(customer, accountNumber, new Interest() {
+                @Override
+                public double getInterest(double balance) {
+                    return 1.2;
+                }
+            }, "GOLD");
             //TODO set interest value depending on type of account
             return account;
         }

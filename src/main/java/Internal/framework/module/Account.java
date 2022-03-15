@@ -9,8 +9,9 @@ public class Account {
 
     private String accountNumber;
 
-    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+    private String accountType;
 
+    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     private Interest interest;
 
@@ -18,9 +19,11 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public Account(Customer customer,String accountNumber) {
+    public Account(Customer customer, String accountNumber, Interest interest, String accountType) {
         this.customer = customer;
         this.accountNumber = accountNumber;
+        this.interest = interest;
+        this.accountType = accountType;
     }
 
     public void setInterest(Interest interest) {
@@ -52,6 +55,8 @@ public class Account {
         balance *= (intRate/100);
         deposit(balance);
     }
+
+    public Interest getInterest() { return interest; }
 
     public void deposit(double amount) {
         AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
@@ -86,7 +91,7 @@ public class Account {
         this.customer = customer;
     }
 
-    public Collection<AccountEntry> getEntryList() {
+    public List<AccountEntry> getEntryList() {
         return entryList;
     }
 }

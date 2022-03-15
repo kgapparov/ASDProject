@@ -5,8 +5,12 @@ import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
+import Internal.framework.module.ActionType;
+import Internal.framework.module.Observer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class AccountServiceApplicationFactory implements AccountService{
     private AccountDAO accountDAO;
@@ -30,6 +34,8 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     public EnvironmentType getEnvType() {
         return envType;
     }
+
+    private List<Observer> observers = new ArrayList<>();
 
     public void setEnvType(EnvironmentType envType) {
         if (envType == EnvironmentType.MEMORY) {
@@ -56,6 +62,7 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);
         accountDAO.updateAccount(account);
+        sendNotification(account, ActionType.DEPOSIT);
     }
 
     @Override
@@ -63,6 +70,7 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(-amount);
         accountDAO.updateAccount(account);
+        sendNotification(account, ActionType.WITHDRAW);
     }
 
 
@@ -71,6 +79,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         Collection<Account> accounts = getAllAccounts();
         for (Account account: accounts) {
             account.addInterest();
+        }
+    }
+
+    @Override
+    public void sendNotification(Account account, ActionType action) {
+        for (Observer o : observers) {
+            o.update(account, action);
         }
     }
 
