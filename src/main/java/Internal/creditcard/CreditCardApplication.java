@@ -1,4 +1,4 @@
-package Internal.ccard;
+package Internal.creditcard;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.module.Account;

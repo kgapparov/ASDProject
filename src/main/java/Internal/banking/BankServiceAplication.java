@@ -1,4 +1,4 @@
-package Internal.bank;
+package Internal.banking;
 
 import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
@@ -22,7 +22,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
 
         if (customer != null) {
-            Account account = new Account(customer, accountNumber);
+            Account account = new Account(customer, accountNumber, balance -> 1.2, "GOLD");
             //TODO set interest value depending on type of account
             getStorage().getAccountDAO().saveAccount(account);
             for (Account acc : getStorage().getAccountDAO().getAccounts()) {
