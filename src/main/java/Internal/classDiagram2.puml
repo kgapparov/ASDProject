@@ -1,0 +1,86 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface AccountService {
+    +createAccount();
+    +deposit();
+    +withdrow();
+    +addInterest();
+}
+
+abstract AccountServiceApplicationFactory{
+    +{abstract}createAccount();
+    +deposit();
+    +withdrow();
+    +addInterest();
+    +getAllAccounts();
+    +getAccount();
+}
+
+
+
+interface ProductFactory {
+    +createAccount();
+    +createNotifyer();
+    +createInterest();
+}
+'new Account product with subclasses
+abstract Account
+class CheckingAccount
+class SavingAccount
+
+
+ abstract InterestCalculator{
+ calcInterest()
+ }
+ class PersonalSavingInterestCalculator{
+ calcInterest()
+ }
+ class PersonalCheckingInterestCalculator{
+ calcInterest()
+ }
+ class CompanySavingInterestCalculator{
+ calcInterest()
+ }
+ class CompanyCheckingInterestCalculator{
+ calcInterest()
+ }
+
+
+ interface state{
+ }
+
+'diagram
+CheckingAccount --|> Account
+SavingAccount --|> Account
+
+
+'Observer pattern for notifiyer
+interface Subject
+Interface Observer
+class EmailObserver
+
+Observer --> Subject
+EmailObserver ..|> Observer
+
+AccountServiceApplicationFactory --> Subject
+
+
+AccountServiceApplicationFactory ..|> AccountService
+AccountServiceImpl --|> AccountServiceApplicationFactory
+CCardServiceImpl --|> AccountServiceApplicationFactory
+
+AccountServiceApplicationFactory ..> ProductFactory
+Account <-- AccountServiceApplicationFactory
+
+ Account -->InterestCalculator
+InterestCalculator --> state
+lowIntersetState ..|> state
+midIntersetState ..|> state
+highIntersetState ..|> state
+ InterestCalculator <|--PersonalSavingInterestCalculator
+ InterestCalculator <|--PersonalCheckingInterestCalculator
+ InterestCalculator <|--CompanySavingInterestCalculator
+ InterestCalculator <|--CompanyCheckingInterestCalculator
+
+@enduml
