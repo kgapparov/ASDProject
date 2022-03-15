@@ -1,15 +1,16 @@
-package Internal.ui.bank;
-import java.awt.*;
-import javax.swing.*;
+package Internal.framework.ui;
 
-public class JDialog_Deposit extends javax.swing.JDialog
+import javax.swing.*;
+import java.awt.*;
+
+public class JDialog_Deposit extends JDialog
 {
     
 
-    private BankFrm parentframe;
+    private ApplicationFrm parentframe;
     private String accnr;
     
-	public JDialog_Deposit(BankFrm parent, String aaccnr)
+	public JDialog_Deposit(ApplicationFrm parent, String aaccnr)
 	{
 		super(parent);
 		parentframe=parent;
@@ -27,11 +28,11 @@ public class JDialog_Deposit extends javax.swing.JDialog
 		setVisible(false);
 		JLabel1.setText("Acc Nr");
 		getContentPane().add(JLabel1);
-		JLabel1.setForeground(java.awt.Color.black);
+		JLabel1.setForeground(Color.black);
 		JLabel1.setBounds(12,12,48,24);
 		JLabel2.setText("Amount");
 		getContentPane().add(JLabel2);
-		JLabel2.setForeground(java.awt.Color.black);
+		JLabel2.setForeground(Color.black);
 		JLabel2.setBounds(12,48,48,24);
 		JTextField_NAME.setEditable(false);
 		getContentPane().add(JTextField_NAME);
@@ -59,12 +60,12 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 
 	//{{DECLARE_CONTROLS
-	javax.swing.JLabel JLabel1 = new javax.swing.JLabel();
-	javax.swing.JLabel JLabel2 = new javax.swing.JLabel();
-	javax.swing.JTextField JTextField_NAME = new javax.swing.JTextField();
-	javax.swing.JButton JButton_OK = new javax.swing.JButton();
-	javax.swing.JButton JButton_Cancel = new javax.swing.JButton();
-	javax.swing.JTextField JTextField_Deposit = new javax.swing.JTextField();
+	JLabel JLabel1 = new JLabel();
+	JLabel JLabel2 = new JLabel();
+	JTextField JTextField_NAME = new JTextField();
+	JButton JButton_OK = new JButton();
+	JButton JButton_Cancel = new JButton();
+	JTextField JTextField_Deposit = new JTextField();
 	//}}
 
 

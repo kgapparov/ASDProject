@@ -96,6 +96,7 @@ public class CardFrm extends javax.swing.JFrame
 	 * Sets the Look and Feel to the System Look and Feel.
 	 * Creates a new JFrame1 and makes it visible.
 	 *****************************************************/
+	//update
 	static public void main(String args[])
 	{
 		try {

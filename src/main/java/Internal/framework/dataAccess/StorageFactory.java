@@ -1,31 +1,31 @@
 package Internal.framework.dataAccess;
 
 public abstract class StorageFactory {
-    private AccountDAO account;
-    private AccountEntryDAO cccountEntry;
-    private CustomerDAO customer;
+    private AccountDAO accountDAO;
+    private AccountEntryDAO accountEntryDAO;
+    private CustomerDAO customerDAO;
 
-    public AccountDAO getAccount() {
-        return account;
+    public AccountDAO getAccountDAO() {
+        return accountDAO;
     }
 
-    public AccountEntryDAO getCccountEntry() {
-        return cccountEntry;
+    public AccountEntryDAO getAccountEntryDAO() {
+        return accountEntryDAO;
     }
 
-    public CustomerDAO getCustomer() {
-        return customer;
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
     }
 
-    public void setAccount(AccountDAO account) {
-        this.account = account;
+    public void setAccountDAO(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
     }
 
-    public void setCccountEntry(AccountEntryDAO cccountEntry) {
-        this.cccountEntry = cccountEntry;
+    public void setAccountEntryDAO(AccountEntryDAO accountEntryDAO) {
+        this.accountEntryDAO = accountEntryDAO;
     }
 
-    public void setCustomer(CustomerDAO customer) {
-        this.customer = customer;
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
     }
 }
