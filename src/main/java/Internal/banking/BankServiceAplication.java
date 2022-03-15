@@ -1,4 +1,4 @@
-package Internal.bank;
+package Internal.banking;
 
 import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
