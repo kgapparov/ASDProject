@@ -1,8 +1,9 @@
-package Internal.framework.module;
+package Internal.framework.module.commands;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
+import Internal.framework.module.commands.CommandInterface;
 
-public class DepositCommand implements CommandInterface{
+public class WidthdrawCommand implements CommandInterface {
     private AccountServiceApplicationFactory service;
     private Double amount;
     private String accNumber, title;
@@ -11,9 +12,8 @@ public class DepositCommand implements CommandInterface{
         this.title = title;
     }
 
-    public DepositCommand(AccountServiceApplicationFactory service ) {
+    public WidthdrawCommand(AccountServiceApplicationFactory service ) {
         this.service = service;
-        this.title = "Deposit";
     }
 
     @Override
@@ -30,6 +30,6 @@ public class DepositCommand implements CommandInterface{
     }
     @Override
     public void execute() {
-        service.deposit(accNumber, amount);
+        service.withdraw(accNumber, amount);
     }
 }

@@ -1,5 +1,7 @@
 package Internal.framework.controller;
 
+import Internal.bank.CheckingAccount;
+import Internal.bank.SavingAccount;
 import Internal.framework.dataAccess.AccountDAO;
 import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
@@ -47,7 +49,32 @@ public abstract class AccountServiceApplicationFactory implements AccountService
 
     public abstract void init(EnvironmentType envType);
 
-    public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
+    public Account createAccount(AccountType type, String accountNumber, String customerName) {
+        Customer customer = getStorage().getCustomerDAO().loadCustomer(customerName);
+        Account acc;
+        if (customer != null) {
+            Account account;
+            if (customer instanceof Individual) {
+                if (type == AccountType.CHECKING) {
+                    acc = new CheckingAccount(customer, accountNumber);
+                    accountDAO.saveAccount(acc);
+                    return acc;
+                }
+                acc = new SavingAccount(customer, accountNumber);
+                accountDAO.saveAccount(acc);
+                return acc;
+            }
+            if (type == AccountType.CHECKING) {
+                acc = new CheckingAccount(customer, accountNumber);
+                accountDAO.saveAccount(acc);
+                return acc;
+            }
+            acc = new SavingAccount(customer, accountNumber);
+            accountDAO.saveAccount(acc);
+            return acc;
+        }
+        return null;
+    }
 
 
     @Override
@@ -63,9 +90,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     @Override
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(amount);
-        accountDAO.updateAccount(account);
-        sendNotification(account, ActionType.DEPOSIT);
+        if (account != null ) {
+            account.deposit(amount);
+            accountDAO.updateAccount(account);
+            sendNotification(account, ActionType.DEPOSIT);
+        } else {
+            System.out.println("Account is null");
+        }
     }
 
     @Override

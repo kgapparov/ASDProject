@@ -2,12 +2,11 @@ package Internal.framework.ui;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.module.*;
+import Internal.framework.module.commands.CommandInterface;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ApplicationFrm extends javax.swing.JFrame{
 

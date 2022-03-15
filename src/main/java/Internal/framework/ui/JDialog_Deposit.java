@@ -1,12 +1,9 @@
 package Internal.framework.ui;
 
-import Internal.framework.module.Account;
-import Internal.framework.module.CommandInterface;
+import Internal.framework.module.commands.CommandInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JDialog_Deposit extends JDialog
 {
