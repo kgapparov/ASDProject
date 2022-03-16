@@ -47,35 +47,34 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
     }
 
     @Override
-    public void buildReport() {
+    public String buildReport() {
         String billstring = "";
         LocalDate todaydate = LocalDate.now();
         for (Account account : getAllAccounts()) {
             Customer cust = account.getCustomer();
-            System.out.println("----------------------------------------" + "----------------------------------------");
+            System.out.println("----------------------------------------");
             billstring = String.format("Name= %s\r\n", cust.getClientName());
             billstring += String.format("Address= %s, %s, %s, %s\r\n", cust.getStreet(), cust.getCity(), cust.getState(), cust.getZip());
             billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
             billstring += String.format("CC type= %s\r\n", account.getAccountType());
             billstring += String.format("Account balance = $ %f\r\n", account.getBalance());
             System.out.println(billstring);
-            billstring += String.format("==================================");
-            System.out.println("-Date-------------------------"
-                    + "-Description------------------"
-                    + "-Amount-------------");
+            billstring += String.format("==================================\n");
+            billstring += ("-Date-----"
+                    + "-Description--"
+                    + "-Amount---\n");
             for (AccountEntry entry : account.getEntryList()) {
-                System.out.printf("%30s%30s%20.2f\n",
+                billstring += String.format("%10s%10s%10.2f\n",
                         entry.getDate().toString(),
                         entry.getDescription(),
                         entry.getAmount());
             }
 
-            System.out.println("----------------------------------------" + "----------------------------------------");
-            System.out.printf("%30s%30s%20.2f\n\n", "", "Current Balance:", account.getBalance());
+            billstring+= "\n----------------------------------------\n";
+            billstring+=String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
         }
+        return billstring;
     }
-
-
 }
 
 

@@ -92,19 +92,16 @@ public class ApplicationFrm extends javax.swing.JFrame{
         JButton_CompAC.setBounds(240,20,192,33);
         JButton_Deposit.setText("Deposit");
         JPanel1.add(JButton_Deposit);
-        JButton_Deposit.setBounds(468,104,96,33);
+        JButton_Deposit.setBounds(468,94,96,33);
         JButton_Withdraw.setText("Withdraw");
         JPanel1.add(JButton_Withdraw);
         JButton_Addinterest.setBounds(448,20,106,33);
         JButton_Addinterest.setText("Add interest");
         JPanel1.add(JButton_Addinterest);
-        JButton_Withdraw.setBounds(468,164,96,33);
+        JButton_Withdraw.setBounds(468,154,96,33);
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
         JButton_Exit.setBounds(468,248,96,31);
-        // lineBorder1.setRoundedCorners(true);
-        // lineBorder1.setLineColor(java.awt.Color.green);
-        //$$ lineBorder1.move(24,312);
 
         JButton_PerAC.setActionCommand("jbutton");
 
@@ -118,6 +115,10 @@ public class ApplicationFrm extends javax.swing.JFrame{
         JButton_Withdraw.addActionListener(lSymAction);
         JButton_Addinterest.addActionListener(lSymAction);
 
+    }
+
+    public JPanel getJPanel1() {
+        return JPanel1;
     }
 
     javax.swing.JPanel JPanel1 = new javax.swing.JPanel();
@@ -179,7 +180,6 @@ public class ApplicationFrm extends javax.swing.JFrame{
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
-
         }
     }
 
@@ -266,8 +266,8 @@ public class ApplicationFrm extends javax.swing.JFrame{
             // compute new amount
             long deposit = Long.parseLong(amountDeposit);
             String samount = (String)model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-            long newamount=currentamount+deposit;
+            double currentamount = Double.parseDouble(samount);
+            double newamount=currentamount+deposit;
             model.setValueAt(String.valueOf(newamount),selection, 5);
         }
 

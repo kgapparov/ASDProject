@@ -153,6 +153,7 @@ public class JDialog_AddCompAcc extends JDialog
            else
            parentframe.accountType=AccountType.SAVING;
 	   parentframe.newaccount=true;
+	   //todo apply command pattern
 		Customer newCustomer = new Company();
 		newCustomer.setStreet(parentframe.street);
 		newCustomer.setZip(parentframe.zip);

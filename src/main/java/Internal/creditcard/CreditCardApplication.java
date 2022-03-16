@@ -28,7 +28,7 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
     }
 
     @Override
-    public void buildReport() {
+    public String buildReport() {
         String billstring = "Credit card report";
         LocalDate todaydate = LocalDate.now();
         boolean hasdata = false;
@@ -56,8 +56,8 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
         if(!hasdata)
             billstring += "\n empty report";
 
-        System.out.println(billstring);
-
+        //System.out.println(billstring);
+        return billstring;
     }
 
 }
