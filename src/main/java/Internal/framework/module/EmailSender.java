@@ -7,7 +7,7 @@ public class EmailSender implements Observer{
 
     public EmailSender(StateNotifyer subject) {
         this.subject = subject;
-        subject.register(this);
+        subject.registerObserver(this);
     }
 
     @Override

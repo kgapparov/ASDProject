@@ -87,8 +87,8 @@ public class JDialog_Deposit extends JDialog
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
 		if (parentframe.accountnr != null) {
-			parentframe.getCommand(0).setParams(parentframe.accountnr, parentframe.amountDeposit);
-			parentframe.getCommand(0).execute();
+			parentframe.getInvoker().getCommand(0).setParams(parentframe.accountnr, parentframe.amountDeposit);
+			parentframe.getInvoker().getCommand(0).execute();
 		}
         dispose();
 	}
