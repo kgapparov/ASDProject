@@ -2,19 +2,17 @@ package Internal.bank;
 
 import Internal.bank.ui.CheckingAccountConcreteFactory;
 import Internal.bank.ui.SavingAccountConcreteFactory;
-import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
     import Internal.framework.module.Account;
+import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
-import Internal.framework.module.Individual;
 import Internal.framework.module.commands.*;
 import Internal.framework.controller.command.*;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
-import javax.swing.*;
 import java.time.LocalDate;
 
 public class BankServiceAplication extends AccountServiceApplicationFactory {
