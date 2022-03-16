@@ -8,20 +8,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class Account {
+public abstract class Account implements StateNotifyer {
     private  AccountType accountType;
     private Customer customer;
     private String accountNumber;
-    private List<NotificationStrategy> notificationStrategies;
+    private List<NotificationStrategy> notificationStrategies = new ArrayList<>();
     private List<AccountEntry> entryList = new ArrayList<>();
-    private List<Observer> notificationObservers;
+    private List<Observer> notificationObservers = new ArrayList<>();
 
     public Account(Customer customer, String accountNumber, InterestCalculator interest, AccountType accountType) {
         this.customer = customer;
         this.accountNumber = accountNumber;
         this.interest = interest;
-        this.notificationStrategies = new ArrayList<>();
-        this.notificationObservers = new ArrayList<>();
         this.accountType = accountType;
     }
 
@@ -39,6 +37,10 @@ public abstract class Account {
 
     public State getInterestState() {
         return interestState;
+    }
+
+    public void addNotificationStrategy(NotificationStrategy notificationStrategy) {
+        this.notificationStrategies.add(notificationStrategy);
     }
 
     public Account(String accountNumber) {
@@ -123,6 +125,25 @@ public abstract class Account {
     }
 
     public abstract String getAccountType();
+
+    public void addNotificationService(Observer notification) {
+        this.notificationObservers.add(notification);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        this.notificationObservers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        this.notificationObservers.remove(observer);
+    }
+
+    @Override
+    public void sendNotification(Account account) {
+        this.notificationObservers.forEach(observer -> observer.update(account));
+    }
 
     public List<Observer> getNotificationObservers() {
         return notificationObservers;

@@ -77,7 +77,7 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         if (account != null ) {
             account.deposit(amount);
             accountDAO.updateAccount(account);
-            sendNotification(account, ActionType.DEPOSIT);
+            sendNotification(account);
         } else {
             System.out.println("Account is null");
         }
@@ -86,9 +86,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     @Override
     public void withdraw(String accountNumber, double amount){
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(-amount);
-        accountDAO.updateAccount(account);
-        sendNotification(account, ActionType.WITHDRAW);
+        if (account != null ) {
+            account.deposit(-amount);
+            accountDAO.updateAccount(account);
+            sendNotification(account);
+        } else {
+            System.out.println("Account is null");
+        }
     }
 
 
@@ -115,9 +119,9 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     }
 
     @Override
-    public void sendNotification(Account account, ActionType action) {
+    public void sendNotification(Account account) {
         for (Observer observer : observers) {
-            observer.update(account, action);
+            observer.update(account);
         }
     }
 
