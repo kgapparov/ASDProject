@@ -30,6 +30,16 @@ public abstract class Account {
 
     private InterestCalculator interest;
 
+    private State interestState = new LowInterestState();
+
+    public void setInterestState(State state) {
+        this.interestState = state;
+    }
+
+    public State getInterestState() {
+        return interestState;
+    }
+
     public Account(String accountNumber) {
         this.accountNumber = accountNumber;
     }
