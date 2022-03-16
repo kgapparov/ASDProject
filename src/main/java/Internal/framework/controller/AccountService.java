@@ -12,6 +12,6 @@ public interface AccountService extends StateNotifyer {
     void deposit (String accountNumber, double amount);
     void withdraw (String accountNumber, double amount);
     void addInterest();
-    void buildReport();
-     void sendNotification(Account account, ActionType action);
+    String buildReport();
+    void sendNotification(Account account);
 }

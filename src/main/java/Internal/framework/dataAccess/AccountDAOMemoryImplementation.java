@@ -8,14 +8,16 @@ import Internal.framework.module.Customer;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountDAOMemoryImplementation implements AccountDAO {
-    private final CommonDAO<Account> memAccount = new CommonDAOMemoryImplement<Account>();
+    private final CommonDAO<Account> memAccount = new CommonDAOMemoryImplement<>();
 
     @Override
     public void saveAccount(Account account) {
         memAccount.save(account.getAccountNumber(), account);
-     }
+    }
 
     @Override
     public void updateAccount(Account account) {
@@ -30,6 +32,14 @@ public class AccountDAOMemoryImplementation implements AccountDAO {
     @Override
     public Collection<Account> getAccounts() {
         return memAccount.getAll();
+    }
+
+    @Override
+    public List<AccountEntry> getEntries() {
+        return memAccount.getAll().stream()
+                .map(Account::getEntryList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Override

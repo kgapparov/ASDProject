@@ -10,7 +10,7 @@ public class AmountGreaterThan400 implements NotificationStrategy {
     public void execute(Account account) {
         AccountEntry entry = account.getEntryList().get(account.getEntryList().size() - 1);
         if(entry.getAmount() >= 400){
-            account.getNotificationObservers().forEach(observer -> observer.update(account, ActionType.WITHDRAW));
+            account.getNotificationObservers().forEach(observer -> observer.update(account));
         }
     }
 }

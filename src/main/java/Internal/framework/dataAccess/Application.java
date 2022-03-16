@@ -4,6 +4,8 @@ import Internal.bank.CheckingAccount;
 import Internal.bank.BankServiceAplication;
 import Internal.bank.CheckingAccount;
 import Internal.bank.SavingAccount;
+import Internal.framework.controller.AccountServiceImpl;
+import Internal.framework.controller.AmountGreaterThan400;
 import Internal.framework.module.*;
 import Internal.creditcard.CreditCardApplication;
 import Internal.framework.controller.AccountService;
@@ -86,5 +88,20 @@ public class Application {
 
         ReportCommand reportCommand1 = new ReportCommand(accountServiceApplicationFactory1);
         reportCommand1.execute();
+
+        //Observer
+        System.out.println("---------------------------");
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        EmailSender emailSender = new EmailSender(accountService);
+//        EmailSender.getInstance(account);
+//        account.addNotificationStrategy(new AmountGreaterThan400());
+        accountService.createAccount(AccountType.CHECKING, "12345", "Altangerel");
+        accountService.deposit("12345", 100000);
+        accountService.getAccount("12345").addNotificationStrategy(new AmountGreaterThan400());
+        accountService.deposit("12345", 100000);
+        accountService.updateAccount(accountService.getAccount("12345"));
+        accountService.deposit("12345", 100000);
+
+        System.out.println(accountService.getAccount("12345").getBalance());
     }
 }

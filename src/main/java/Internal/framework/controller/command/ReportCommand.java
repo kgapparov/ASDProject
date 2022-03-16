@@ -25,6 +25,5 @@ public class ReportCommand implements CommandInterface {
     @Override
     public void execute() {
         accountService.buildReport();
-
     }
 }
