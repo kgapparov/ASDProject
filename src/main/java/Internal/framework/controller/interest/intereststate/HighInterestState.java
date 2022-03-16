@@ -1,4 +1,4 @@
-package Internal.framework.controller.intereststate;
+package Internal.framework.controller.interest.intereststate;
 
 import Internal.framework.module.Account;
 
@@ -12,6 +12,6 @@ public class HighInterestState implements   State  {
             account.setInterestState(new MidInterestState());
             return account.getInterest().handleInterest(account);
         }
-        return account.getBalance()* 0.5;
+        return account.getBalance() * InterestRateEnum.HIGHINTEREST.getValue();
     }
 }
