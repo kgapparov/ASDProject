@@ -4,6 +4,7 @@ import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
+import Internal.framework.module.Customer;
 import Internal.framework.ui.ApplicationFrm;
 
 public class CreditCardApplication extends AccountServiceApplicationFactory {
@@ -18,7 +19,7 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
     }
 
     @Override
-    public Account createAccount(AccountType type, String accountNumber, String customerName) {
+    public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
         return null;
     }
 }
