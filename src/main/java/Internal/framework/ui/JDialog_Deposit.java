@@ -1,12 +1,9 @@
 package Internal.framework.ui;
 
-import Internal.framework.module.Account;
-import Internal.framework.module.CommandInterface;
+import Internal.framework.module.commands.CommandInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JDialog_Deposit extends JDialog
 {
@@ -90,8 +87,8 @@ public class JDialog_Deposit extends JDialog
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
 		if (parentframe.accountnr != null) {
-			parentframe.getCommand(0).setParams(parentframe.accountnr, parentframe.amountDeposit);
-			parentframe.getCommand(0).execute();
+			parentframe.getInvoker().getCommand(0).setParams(parentframe.accountnr, parentframe.amountDeposit);
+			parentframe.getInvoker().getCommand(0).execute();
 		}
         dispose();
 	}

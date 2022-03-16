@@ -1,4 +1,4 @@
-package Internal.framework.module;
+package Internal.framework.module.commands;
 
 public interface CommandInterface {
     String getTitle();

@@ -1,0 +1,13 @@
+@startuml
+abstract class StorageFactory {
+    +getAccountDAO()
+    +getCustomerDAO()
+    +getAccountEntryDAO()
+    +setAccountDAO()
+    +setCustomerDAO()
+    +setAccountEntryDAO()
+}
+class MemoryStorageFuctory{
+}
+MemoryStorageFuctory --|> StorageFactory
+@enduml

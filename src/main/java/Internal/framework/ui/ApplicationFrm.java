@@ -1,31 +1,26 @@
 package Internal.framework.ui;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.module.*;
+import Internal.framework.controller.command.Invoker;
+import Internal.framework.module.AccountType;
+import Internal.framework.module.Company;
+import Internal.framework.module.Customer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ApplicationFrm extends javax.swing.JFrame{
 
     private AccountServiceApplicationFactory accountService;
 
-    private final CommandInterface[] commands = new CommandInterface[5];
 
     public void setAccountService(AccountServiceApplicationFactory accountService) {
         this.accountService = accountService;
     }
 
-    public void setCommand (int slot, CommandInterface command) {
-        commands[slot] = command;
-    }
 
-    public CommandInterface getCommand(int slot) {
-        return commands[slot];
-    }
+    Invoker invoker = new Invoker();
 
     public AccountServiceApplicationFactory getAccountService() {
         return accountService;
@@ -47,6 +42,9 @@ public class ApplicationFrm extends javax.swing.JFrame{
     ApplicationFrm myframe;
     private Object rowdata[];
 
+    public Invoker getInvoker() {
+        return invoker;
+    }
 
     public ApplicationFrm()
     {
@@ -204,15 +202,12 @@ public class ApplicationFrm extends javax.swing.JFrame{
         pac.show();
 
         if (newaccount){
+
+            //Execute Customer Save Command
+            getInvoker().getCommand(3).setParams("I", clientName, city, zip, state, street);
+            getInvoker().getCommand(3).execute();
+
             // add row to table
-            Customer newCustomer = new Individual();
-            newCustomer.setClientName(clientName);
-            newCustomer.setCity(city);
-            newCustomer.setZip(zip);
-            newCustomer.setState(state);
-            newCustomer.setStreet(street);
-            accountService.getStorage().getCustomerDAO().saveCustomer(newCustomer);
-            accountService.createAccount(accountType, accountnr, clientName);
             rowdata[0] = accountnr;
             rowdata[1] = clientName;
             rowdata[2] = city;
@@ -269,7 +264,7 @@ public class ApplicationFrm extends javax.swing.JFrame{
             String accnr = (String)model.getValueAt(selection, 0);
 
             //Show the dialog for adding deposit amount for the current mane
-            Internal.framework.ui.JDialog_Deposit dep = new JDialog_Deposit(myframe,accnr, commands[0]);
+            Internal.framework.ui.JDialog_Deposit dep = new JDialog_Deposit(myframe,accnr, invoker.getCommand(0));
             dep.setBounds(430, 15, 275, 140);
             dep.show();
 
@@ -312,8 +307,8 @@ public class ApplicationFrm extends javax.swing.JFrame{
 
     void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
     {
+        getInvoker().getCommand(2).execute();
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-
     }
     static public void main(String args[])
     {

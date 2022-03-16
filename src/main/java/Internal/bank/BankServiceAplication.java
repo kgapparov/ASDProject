@@ -1,14 +1,22 @@
 package Internal.bank;
 
-import Internal.bank.CheckingAccount;
-import Internal.bank.SavingAccount;
 import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
+import Internal.framework.module.Account;
+import Internal.framework.module.AccountType;
+import Internal.framework.module.Customer;
+import Internal.framework.module.Individual;
+import Internal.framework.module.commands.AddCustomerCommand;
+import Internal.framework.module.commands.AddInterestCommand;
+import Internal.framework.module.commands.DepositCommand;
+import Internal.framework.module.commands.WidthdrawCommand;
+import Internal.framework.controller.command.*;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
 import javax.swing.*;
+import java.time.LocalDate;
 
 public class BankServiceAplication extends AccountServiceApplicationFactory {
     @Override
@@ -16,71 +24,61 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         setEnvType(envType);
     }
 
+
     @Override
     public void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service) {
-        form.setCommand(0, new DepositCommand(service));
-        form.setCommand(1, new WidthdrawCommand(service));
-        form.setCommand(2, new AddInterestCommand(service));
+        form.getInvoker().setCommand(0, new DepositCommand(service));
+        form.getInvoker().setCommand(1, new WidthdrawCommand(service));
+        form.getInvoker().setCommand(2, new AddInterestCommand(service));
+        form.getInvoker().setCommand(3, new AddCustomerCommand(service));
+        form.getInvoker().setCommand(4, new ReportCommand(service));
     }
 
 
-    public static void main(String[] args) {
-        try {
-            // Add the following code if you want the Look and Feel
-            // to be set to the Look and Feel of the native system.
 
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            //Create a new instance of our application's frame, and make it visible.
-            ApplicationFrm form = new ApplicationFrm();
-            AccountServiceApplicationFactory service = new BankServiceAplication();
-            service.createCommands(form, service);
-            service.init(EnvironmentType.MEMORY);
-            form.setAccountService(service);
-            form.setVisible(true);
+    @Override
+    public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber)
+    {
+        Account account;
+        if (type == AccountType.SAVING) {
+            account = new SavingAccount(customer, accountNumber);
+        } else {
+            account = new CheckingAccount(customer, accountNumber);
         }
-        catch (Throwable t) {
-            t.printStackTrace();
-            //Ensure the application exits with an error condition.
-            System.exit(1);
-        }
-
-
+        return account;
     }
 
     @Override
-    public Account createAccount(AccountType type, String accountNumber, String customerName) {
-        //setup environment
-        super.setEnvType(EnvironmentType.MEMORY);
-
-        //setInterest type
-        Customer customer = super.getStorage().getCustomerDAO().loadCustomer(customerName);
-        if (customer != null) {
-            Account account;
-            //TODO set interest value depending on type of account
-            if (customer instanceof Individual) {
-                if (type == AccountType.CHECKING) {
-                    //account.setInterest(new PersonalCheckingInterestCalculator());
-                    return new CheckingAccount(customer, accountNumber);
-
-                }
-                //  account.setInterest(new PersonalSavingInterestCalculator());
-                return new SavingAccount(customer, accountNumber);
+    public void buildReport() {
+        String billstring = "";
+        LocalDate todaydate = LocalDate.now();
+        for (Account account : getAllAccounts()) {
+            Customer cust = account.getCustomer();
+            System.out.println("----------------------------------------" + "----------------------------------------");
+            billstring = String.format("Name= %s\r\n", cust.getClientName());
+            billstring += String.format("Address= %s, %s, %s, %s\r\n", cust.getStreet(), cust.getCity(), cust.getState(), cust.getZip());
+            billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
+            billstring += String.format("CC type= %s\r\n", account.getAccountType());
+            billstring += String.format("Account balance = $ %f\r\n", account.getBalance());
+            System.out.println(billstring);
+            billstring += String.format("==================================");
+            System.out.println("-Date-------------------------"
+                    + "-Description------------------"
+                    + "-Amount-------------");
+            for (AccountEntry entry : account.getEntryList()) {
+                System.out.printf("%30s%30s%20.2f\n",
+                        entry.getDate().toString(),
+                        entry.getDescription(),
+                        entry.getAmount());
             }
-            if (type == AccountType.CHECKING) {
-                return new CheckingAccount(customer, accountNumber);
-            }
-            return new SavingAccount(customer, accountNumber);
+
+            System.out.println("----------------------------------------" + "----------------------------------------");
+            System.out.printf("%30s%30s%20.2f\n\n", "", "Current Balance:", account.getBalance());
         }
-
-        return null;
-
     }
 
 
 }
+
+
+
