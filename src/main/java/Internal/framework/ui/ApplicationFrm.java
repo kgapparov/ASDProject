@@ -1,31 +1,25 @@
 package Internal.framework.ui;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
+import Internal.framework.controller.command.CommandInterface;
+import Internal.framework.controller.command.Invoker;
 import Internal.framework.module.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ApplicationFrm extends javax.swing.JFrame{
 
     private AccountServiceApplicationFactory accountService;
 
-    private final CommandInterface[] commands = new CommandInterface[5];
 
     public void setAccountService(AccountServiceApplicationFactory accountService) {
         this.accountService = accountService;
     }
 
-    public void setCommand (int slot, CommandInterface command) {
-        commands[slot] = command;
-    }
 
-    public CommandInterface getCommand(int slot) {
-        return commands[slot];
-    }
+    Invoker invoker = new Invoker();
 
     public AccountServiceApplicationFactory getAccountService() {
         return accountService;
@@ -47,6 +41,9 @@ public class ApplicationFrm extends javax.swing.JFrame{
     ApplicationFrm myframe;
     private Object rowdata[];
 
+    public Invoker getInvoker() {
+        return invoker;
+    }
 
     public ApplicationFrm()
     {
@@ -269,7 +266,7 @@ public class ApplicationFrm extends javax.swing.JFrame{
             String accnr = (String)model.getValueAt(selection, 0);
 
             //Show the dialog for adding deposit amount for the current mane
-            Internal.framework.ui.JDialog_Deposit dep = new JDialog_Deposit(myframe,accnr, commands[0]);
+            Internal.framework.ui.JDialog_Deposit dep = new JDialog_Deposit(myframe,accnr, invoker.getCommand(0));
             dep.setBounds(430, 15, 275, 140);
             dep.show();
 

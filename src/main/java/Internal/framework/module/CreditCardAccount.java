@@ -1,5 +1,7 @@
 package Internal.framework.module;
 
+import java.time.LocalDate;
+
 public class CreditCardAccount extends Account {
     private MinimumPaymentStrategy minimumPaymentStrategy;
     private String expireDate;
@@ -19,5 +21,36 @@ public class CreditCardAccount extends Account {
     @Override
     public String getAccountType() {
         return null;
+    }
+
+    public double getPrevBalance() {
+        LocalDate todaydate = LocalDate.now();
+        return this.getEntryList().stream()
+                .filter(accountEntry -> accountEntry.getDate().isBefore(todaydate.withDayOfMonth(1)))
+                .mapToDouble(AccountEntry::getAmount).sum();
+    }
+
+    public double getTotalCredit() {
+        LocalDate todaydate = LocalDate.now();
+        return this.getEntryList().stream()
+                .filter(accountEntry -> accountEntry.getDate().isAfter(todaydate.withDayOfMonth(1)))
+                .filter(accountEntry -> accountEntry.getAmount() < 0)
+                .mapToDouble(AccountEntry::getAmount).sum();
+    }
+
+    public double getTotalCharge() {
+        LocalDate todaydate = LocalDate.now();
+        return this.getEntryList().stream()
+                .filter(accountEntry -> accountEntry.getDate().isAfter(todaydate.withDayOfMonth(1)))
+                .filter(accountEntry -> accountEntry.getAmount() >= 0)
+                .mapToDouble(AccountEntry::getAmount).sum();
+    }
+
+    public double getNewBalance() {
+        return 0;
+    }
+
+    public double getTotalDue() {
+        return 0;
     }
 }

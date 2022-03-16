@@ -1,4 +1,4 @@
-package Internal.framework.module;
+package Internal.framework.controller.command;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
 

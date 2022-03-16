@@ -59,4 +59,11 @@ CCardServiceImpl --|> AccountServiceApplicationFactory
 AccountServiceApplicationFactory ..> StorageFactory
 Account <-- AccountServiceApplicationFactory
 
+Command <|-- ReportCommand
+Command <|-- AddInterestCommand
+Command <|-- DepositCommand
+Command <|-- WidthdrawCommand
+
+AccountServiceApplicationFactory -- Command
+ApplicationFrm -- AccountServiceApplicationFactory
 @enduml
