@@ -102,8 +102,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void buildReport() {
-
+    public String buildReport() {
+        return null;
     }
 
     @Override

@@ -42,6 +42,11 @@ public class AddCustomerCommand implements CommandInterface{
 
     @Override
     public void execute() {
+        for (Customer custom : service.getStorage().getCustomerDAO().getCustomers()) {
+            if (custom.getClientName().equals(customer.getClientName()) && custom.getZip().equals(customer.getZip())) {
+                return;
+            }
+        }
         service.getStorage().getCustomerDAO().saveCustomer(customer);
     }
 }
