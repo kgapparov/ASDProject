@@ -1,12 +1,12 @@
 package Internal.framework.controller;
 
+import Internal.bank.CheckingAccount;
+import Internal.bank.SavingAccount;
 import Internal.framework.dataAccess.AccountDAO;
 import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.ActionType;
-import Internal.framework.module.Observer;
+import Internal.framework.module.*;
+import Internal.framework.ui.ApplicationFrm;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,12 +40,42 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     public void setEnvType(EnvironmentType envType) {
         if (envType == EnvironmentType.MEMORY) {
             storage = new MemoryStorageFactory();
+            accountDAO = storage.getAccountDAO();
         } else {
             storage = null;
         }
     }
+    public abstract void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service);
 
-    public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
+    public abstract void init(EnvironmentType envType);
+
+    public Account createAccount(AccountType type, String accountNumber, String customerName) {
+        Customer customer = getStorage().getCustomerDAO().loadCustomer(customerName);
+        Account acc;
+        if (customer != null) {
+            Account account;
+            if (customer instanceof Individual) {
+                if (type == AccountType.CHECKING) {
+                    acc = new CheckingAccount(customer, accountNumber);
+                    accountDAO.saveAccount(acc);
+                    return acc;
+                }
+                acc = new SavingAccount(customer, accountNumber);
+                accountDAO.saveAccount(acc);
+                return acc;
+            }
+            if (type == AccountType.CHECKING) {
+                acc = new CheckingAccount(customer, accountNumber);
+                accountDAO.saveAccount(acc);
+                return acc;
+            }
+            acc = new SavingAccount(customer, accountNumber);
+            accountDAO.saveAccount(acc);
+            return acc;
+        }
+        return null;
+    }
+
 
     @Override
     public Account getAccount(String accountNumber) {
@@ -60,9 +90,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     @Override
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(amount);
-        accountDAO.updateAccount(account);
-        sendNotification(account, ActionType.DEPOSIT);
+        if (account != null ) {
+            account.deposit(amount);
+            accountDAO.updateAccount(account);
+            sendNotification(account, ActionType.DEPOSIT);
+        } else {
+            System.out.println("Account is null");
+        }
     }
 
     @Override
@@ -83,9 +117,23 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     }
 
     @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public List<Observer> getNotificationObservers() {
+        return observers;
+    }
+
+    @Override
     public void sendNotification(Account account, ActionType action) {
-        for (Observer o : observers) {
-            o.update(account, action);
+        for (Observer observer : observers) {
+            observer.update(account, action);
         }
     }
 

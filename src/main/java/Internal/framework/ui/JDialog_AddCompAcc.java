@@ -1,6 +1,9 @@
 package Internal.framework.ui;
 
 import Internal.framework.module.AccountType;
+import Internal.framework.module.Company;
+import Internal.framework.module.Customer;
+import Internal.framework.module.Individual;
 
 import javax.swing.*;
 import java.awt.*;
@@ -150,6 +153,14 @@ public class JDialog_AddCompAcc extends JDialog
            else
            parentframe.accountType=AccountType.SAVING;
 	   parentframe.newaccount=true;
+		Customer newCustomer = new Company();
+		newCustomer.setStreet(parentframe.street);
+		newCustomer.setZip(parentframe.zip);
+		newCustomer.setCity(parentframe.city);
+		newCustomer.setState(parentframe.state);
+		newCustomer.setClientName(parentframe.clientName);
+		parentframe.getAccountService().getStorage().getCustomerDAO().saveCustomer(newCustomer);
+		parentframe.getAccountService().createAccount(parentframe.accountType, parentframe.accountnr, parentframe.clientName);
 	   dispose();
 	}
 
