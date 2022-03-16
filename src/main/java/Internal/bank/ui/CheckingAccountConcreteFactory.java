@@ -2,8 +2,8 @@ package Internal.bank.ui;
 
 
 import Internal.bank.CheckingAccount;
-import Internal.framework.controller.interestCalculators.CompanyCheckingInterestCalculator;
-import Internal.framework.controller.interestCalculators.PersonalCheckingInterestCalculator;
+import Internal.framework.controller.interest.interestCalculators.CompanyCheckingInterestCalculator;
+import Internal.framework.controller.interest.interestCalculators.PersonalCheckingInterestCalculator;
 import Internal.framework.module.*;
 
 
