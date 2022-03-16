@@ -7,6 +7,6 @@ public class CompanyCheckingInterestCalculator extends InterestCalculator {
 
     @Override
     public double calculateInterest(Account account) {
-        return handleInterest(account) * 0.8;
+        return handleInterest(account);
     }
 }

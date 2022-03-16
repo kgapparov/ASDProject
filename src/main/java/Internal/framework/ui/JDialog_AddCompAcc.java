@@ -152,6 +152,7 @@ public class JDialog_AddCompAcc extends JDialog
            parentframe.accountType= AccountType.CHECKING;
            else
            parentframe.accountType=AccountType.SAVING;
+
 	   parentframe.newaccount=true;
 		Customer newCustomer = new Company();
 		newCustomer.setStreet(parentframe.street);

@@ -64,6 +64,7 @@ Command <|-- AddInterestCommand
 Command <|-- DepositCommand
 Command <|-- WidthdrawCommand
 
-AccountServiceApplicationFactory -- Command
+Invoker  -- Command
+ApplicationFrm -- Invoker
 ApplicationFrm -- AccountServiceApplicationFactory
 @enduml

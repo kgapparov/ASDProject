@@ -29,9 +29,9 @@ public class Application {
 
         Account goldenCreditCard= a.createAccount("123", customer);
         //deposit
-        savingAccount.deposit(100);
-        checkingAccount.deposit(100);
-        goldenCreditCard.deposit(100);
+        savingAccount.deposit(44444);
+        checkingAccount.deposit(44444);
+        goldenCreditCard.deposit(44444);
 
         //save
         accountDAO.saveAccount(savingAccount);
@@ -69,6 +69,7 @@ public class Application {
         account2.deposit(6000);
         account2.deposit(1000);
         accountDAO.saveAccount(account2);
+        account2.addInterest();
         account2.addInterest();
         account2.addInterest();
 
