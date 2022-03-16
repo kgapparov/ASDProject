@@ -66,8 +66,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
             billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
             billstring += String.format("CC type= %s\r\n", account.getAccountType());
             billstring += String.format("Account balance = $ %f\r\n", account.getBalance());
-            System.out.println(billstring);
-            billstring += String.format("==================================\n");
+            billstring += "==================================\n";
             billstring += ("-Date-----"
                     + "-Description--"
                     + "-Amount---\n");
@@ -78,10 +77,11 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
                         entry.getAmount());
             }
 
-            billstring += "\n----------------------------------------\n";
-            billstring += String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
+            billstring+= "\n----------------------------------------\n";
+            billstring+=String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
         }
-        return billstring.toString();
+                    System.out.println(billstring);
+        return billstring;
     }
 }
 

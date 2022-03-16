@@ -1,4 +1,4 @@
-package Internal.framework.controller.interestCalculators;
+package Internal.framework.controller.interest.interestCalculators;
 
 
 import Internal.framework.module.Account;
@@ -8,7 +8,9 @@ public class CompanySavingInterestCalculator extends InterestCalculator {
 
     @Override
     public double calculateInterest(Account account) {
-        return handleInterest(account) * 0.7;
+
+        System.out.println("xxx");
+        return handleInterest(account)*50;
     }
 
 }

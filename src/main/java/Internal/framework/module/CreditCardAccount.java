@@ -47,10 +47,12 @@ public class CreditCardAccount extends Account {
     }
 
     public double getNewBalance() {
-        return 0;
+        return getInterest().calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge());
+
     }
 
     public double getTotalDue() {
-        return 0;
+        return getInterest().calculateInterest(this);
     }
+
 }
