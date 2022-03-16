@@ -13,6 +13,8 @@ public class Application {
         BankServiceAplication application = new BankServiceAplication();
         ApplicationFrm form = new BankApplicationForm();
         application.run(application, form);
+
+
     }
 
 }

@@ -1,9 +1,7 @@
 package Internal.bank;
 
 
-import Internal.framework.controller.interestCalculators.PersonalCheckingInterestCalculator;
-import Internal.framework.controller.interestCalculators.PersonalSavingInterestCalculator;
-import Internal.framework.module.*;
+  import Internal.framework.module.*;
 
 
 public class CheckingAccount extends Account {
