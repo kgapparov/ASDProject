@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AccountServiceApplicationFactory implements AccountService{
+public abstract class AccountServiceApplicationFactory implements AccountService, StateNotifyer{
     private AccountDAO accountDAO;
 
     private EnvironmentType envType;

@@ -1,8 +1,8 @@
 package Internal.framework.module;
 
-public class EmailSender implements Observer{
+public class CreditCardEmailSender implements Observer{
 
-    public EmailSender() {
+    public CreditCardEmailSender() {
       }
 
     @Override
@@ -13,7 +13,7 @@ public class EmailSender implements Observer{
             System.out.println("Sending an email to - " + account.getCustomer().getClientName() + " "
                     + account.getCustomer().getCustomerType());
         } else if (account.getCustomer().getCustomerType() == CustomerType.INDIVIDUAL && (
-            entry.getAmount() >= 500 || account.getBalance() < 0)) {
+            entry.getAmount() >= 400 || account.getBalance() < 0)) {
             System.out.println("Sending an email to - " + account.getCustomer().getClientName() + " "
                     + account.getCustomer().getCustomerType() + " " + account.getOperationName());
         }
