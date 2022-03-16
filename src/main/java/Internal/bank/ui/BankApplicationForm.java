@@ -15,7 +15,6 @@ public class BankApplicationForm extends ApplicationFrm {
         JButton_Report.setText("Report");
         super.getJPanel1().add(JButton_Report);
         JButton_Report.addActionListener(new SymAction());
-        //super.getAccountService().buildReport();
     }
 
     class SymAction implements java.awt.event.ActionListener
