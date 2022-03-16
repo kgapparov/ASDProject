@@ -1,6 +1,7 @@
 package Internal.bank;
 
 import Internal.bank.ui.BankApplicationForm;
+import Internal.framework.module.EmailSender;
 import Internal.framework.ui.ApplicationFrm;
 
 public class Application {
