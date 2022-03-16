@@ -6,7 +6,6 @@ import Internal.framework.module.InterestCalculator;
 public class PersonalSavingInterestCalculator extends InterestCalculator {
     @Override
     public double calculateInterest(Account account) {
-
-        return handleInterest(account);
+        return handleInterest(account) * 0.3;
     }
 }
