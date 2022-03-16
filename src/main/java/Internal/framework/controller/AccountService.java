@@ -6,8 +6,7 @@ import Internal.framework.module.*;
 import java.util.Collection;
 
 public interface AccountService extends StateNotifyer {
-    Account createAccount(AccountType type, String accountNumber, String customerName);
-    Account getAccount(String accountNumber);
+     Account getAccount(String accountNumber);
     Collection<Account> getAllAccounts();
     void deposit (String accountNumber, double amount);
     void withdraw (String accountNumber, double amount);

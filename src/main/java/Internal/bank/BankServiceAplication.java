@@ -1,8 +1,14 @@
 package Internal.bank;
 
+import Internal.bank.ui.CheckingAccountConcreteFactory;
+import Internal.bank.ui.SavingAccountConcreteFactory;
 import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
+import Internal.framework.controller.interestCalculators.CompanyCheckingInterestCalculator;
+import Internal.framework.controller.interestCalculators.CompanySavingInterestCalculator;
+import Internal.framework.controller.interestCalculators.PersonalCheckingInterestCalculator;
+import Internal.framework.controller.interestCalculators.PersonalSavingInterestCalculator;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
@@ -33,18 +39,20 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
     }
 
 
-
     @Override
-    public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber)
-    {
-        Account account;
-        if (type == AccountType.SAVING) {
-            account = new SavingAccount(customer, accountNumber);
-        } else {
-            account = new CheckingAccount(customer, accountNumber);
+    public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber) {
+
+        if(type == AccountType.CHECKING)
+        {
+            return new CheckingAccountConcreteFactory().createAccount(accountNumber,customer);
+
+        }else{
+            return new SavingAccountConcreteFactory().createAccount(accountNumber,customer);
+
         }
-        return account;
+
     }
+
 
     @Override
     public String buildReport() {
@@ -53,7 +61,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         for (Account account : getAllAccounts()) {
             Customer cust = account.getCustomer();
             System.out.println("----------------------------------------");
-            billstring = String.format("Name= %s\r\n", cust.getClientName());
+            billstring += String.format("Name= %s\r\n", cust.getClientName());
             billstring += String.format("Address= %s, %s, %s, %s\r\n", cust.getStreet(), cust.getCity(), cust.getState(), cust.getZip());
             billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
             billstring += String.format("CC type= %s\r\n", account.getAccountType());
@@ -70,10 +78,10 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
                         entry.getAmount());
             }
 
-            billstring+= "\n----------------------------------------\n";
-            billstring+=String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
+            billstring += "\n----------------------------------------\n";
+            billstring += String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
         }
-        return billstring;
+        return billstring.toString();
     }
 }
 

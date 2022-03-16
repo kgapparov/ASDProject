@@ -31,17 +31,6 @@ public class AccountServiceImpl implements AccountService {
         accountDao = new AccountDAOMemoryImplementation();
     }
 
-    @Override
-    public Account createAccount(AccountType type, String accountNumber, String customerName) {
-        Customer customer = new Individual();
-        customer.setClientName(customerName);
-        Account account = new SavingAccount(customer, accountNumber);
-
-        account.setCustomer(customer);
-
-        accountDao.saveAccount(account);
-        return account;
-    }
 
     @Override
     public Account getAccount(String accountNumber) {

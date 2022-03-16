@@ -1,15 +1,14 @@
 package Internal.bank;
 
 import Internal.framework.controller.interestCalculators.PersonalSavingInterestCalculator;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.ActionType;
-import Internal.framework.module.Customer;
+import Internal.framework.module.*;
 
 public class SavingAccount extends Account {
-    public SavingAccount(Customer customer, String accNum) {
-        super(customer, accNum,new PersonalSavingInterestCalculator());
+
+    public SavingAccount(Customer customer, String accNum, InterestCalculator interestCalculator) {
+        super(customer, accNum,interestCalculator);
     }
+
 
     public String getAccountType() {
         return AccountType.SAVING.name();
