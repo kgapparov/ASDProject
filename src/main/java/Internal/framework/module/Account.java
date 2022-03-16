@@ -11,24 +11,35 @@ import java.util.List;
 public abstract class Account {
     private  AccountType accountType;
     private Customer customer;
-
     private String accountNumber;
-
-    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+    private List<NotificationStrategy> notificationStrategies;
+    private List<AccountEntry> entryList = new ArrayList<>();
+    private List<Observer> notificationObservers;
 
     public Account(Customer customer, String accountNumber, InterestCalculator interest, AccountType accountType) {
         this.customer = customer;
         this.accountNumber = accountNumber;
         this.interest = interest;
+        this.notificationStrategies = new ArrayList<>();
+        this.notificationObservers = new ArrayList<>();
         this.accountType = accountType;
     }
-
 
     public InterestCalculator getInterest() {
         return interest;
     }
 
     private InterestCalculator interest;
+
+    private State interestState = new LowInterestState();
+
+    public void setInterestState(State state) {
+        this.interestState = state;
+    }
+
+    public State getInterestState() {
+        return interestState;
+    }
 
     public Account(String accountNumber) {
         this.accountNumber = accountNumber;
@@ -83,8 +94,9 @@ public abstract class Account {
         entryList.add(entry);
     }
 
-    private void addEntry(AccountEntry entry) {
+    public void addEntry(AccountEntry entry) {
         entryList.add(entry);
+        this.notificationStrategies.forEach(notificationStrategy -> notificationStrategy.execute(this));
     }
 
     public void transferFunds(Account toAccount, double amount, String description) {
@@ -112,7 +124,8 @@ public abstract class Account {
 
     public abstract String getAccountType();
 
+    public List<Observer> getNotificationObservers() {
+        return notificationObservers;
+    }
 
-
-    ;
 }

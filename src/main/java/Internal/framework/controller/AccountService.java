@@ -1,14 +1,11 @@
 package Internal.framework.controller;
 
 import Internal.framework.dataAccess.ReportFactory;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.ActionType;
-import Internal.framework.module.Report;
+import Internal.framework.module.*;
 
 import java.util.Collection;
 
-public interface AccountService {
+public interface AccountService extends StateNotifyer {
     Account createAccount(AccountType type, String accountNumber, String customerName);
     Account getAccount(String accountNumber);
     Collection<Account> getAllAccounts();

@@ -1,8 +1,9 @@
-package Internal.framework.controller.command;
+package Internal.framework.module.commands;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
+import Internal.framework.module.commands.CommandInterface;
 
-public class DepositCommand implements CommandInterface{
+public class DepositCommand implements CommandInterface {
     private AccountServiceApplicationFactory service;
     private Double amount;
     private String accNumber, title;

@@ -1,14 +1,18 @@
 package Internal.framework.controller;
 
+import Internal.bank.CheckingAccount;
+import Internal.bank.SavingAccount;
 import Internal.framework.dataAccess.AccountDAO;
 import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AccountServiceApplicationFactory implements AccountService{
     private AccountDAO accountDAO;
@@ -47,8 +51,15 @@ public abstract class AccountServiceApplicationFactory implements AccountService
 
     public abstract void init(EnvironmentType envType);
 
-    public abstract Account createAccount(AccountType type, String accountNumber, String customerName);
+    public Account createAccount(AccountType type, String accountNumber, String customerName)
+    {
+        Optional<Customer> customer = Optional.ofNullable(getStorage().getCustomerDAO().loadCustomer(customerName));
+        Account acc = customer.map(x -> createConcreteAccount(type, x, accountNumber)).get();
+        accountDAO.saveAccount(acc);
+        return acc;
+    }
 
+    public abstract Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber);
 
     @Override
     public Account getAccount(String accountNumber) {
@@ -63,9 +74,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     @Override
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(amount);
-        accountDAO.updateAccount(account);
-        sendNotification(account, ActionType.DEPOSIT);
+        if (account != null ) {
+            account.deposit(amount);
+            accountDAO.updateAccount(account);
+            sendNotification(account, ActionType.DEPOSIT);
+        } else {
+            System.out.println("Account is null");
+        }
     }
 
     @Override
@@ -86,11 +101,44 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     }
 
     @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public List<Observer> getNotificationObservers() {
+        return observers;
+    }
+
+    @Override
     public void sendNotification(Account account, ActionType action) {
-        for (Observer o : observers) {
-            o.update(account, action);
+        for (Observer observer : observers) {
+            observer.update(account, action);
         }
     }
 
-
+    public void run (AccountServiceApplicationFactory service, ApplicationFrm form) {
+        try {
+            // Add the following code if you want the Look and Feel
+            // to be set to the Look and Feel of the native system.
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Create a new instance of our application's frame, and make it visible.
+            service.createCommands(form, service);
+            service.init(EnvironmentType.MEMORY);
+            form.setAccountService(service);
+            form.setVisible(true);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            //Ensure the application exits with an error condition.
+            System.exit(1);
+        }
+    }
 }

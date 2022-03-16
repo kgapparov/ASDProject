@@ -1,6 +1,7 @@
 package Internal.framework.controller.command;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
+import Internal.framework.module.commands.CommandInterface;
 
 public class ReportCommand implements CommandInterface {
     private   String title;

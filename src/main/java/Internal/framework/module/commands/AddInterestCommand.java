@@ -1,8 +1,9 @@
-package Internal.framework.controller.command;
+package Internal.framework.module.commands;
 
 import Internal.framework.controller.AccountServiceApplicationFactory;
+import Internal.framework.module.commands.CommandInterface;
 
-public class AddInterestCommand implements CommandInterface{
+public class AddInterestCommand implements CommandInterface {
 
     private AccountServiceApplicationFactory serviceApplicationFactory;
 
@@ -28,6 +29,6 @@ public class AddInterestCommand implements CommandInterface{
 
     @Override
     public void execute() {
-
+        serviceApplicationFactory.addInterest();
     }
 }

@@ -1,5 +1,7 @@
 package Internal.framework.controller.command;
 
+import Internal.framework.module.commands.CommandInterface;
+
 public class Invoker {
     private final CommandInterface[] commands = new CommandInterface[5];
 

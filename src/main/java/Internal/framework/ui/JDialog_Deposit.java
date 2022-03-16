@@ -1,6 +1,6 @@
 package Internal.framework.ui;
 
-import Internal.framework.controller.command.CommandInterface;
+import Internal.framework.module.commands.CommandInterface;
 
 import javax.swing.*;
 import java.awt.*;
