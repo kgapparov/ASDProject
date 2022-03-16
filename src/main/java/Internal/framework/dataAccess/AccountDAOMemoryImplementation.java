@@ -5,9 +5,11 @@ import Internal.framework.module.AccountEntry;
 import Internal.framework.module.Transaction;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountDAOMemoryImplementation implements AccountDAO{
-    private final CommonDAO<Account> memAccount= new CommonDAOMemoryImplement<Account>();
+    private final CommonDAO<Account> memAccount= new CommonDAOMemoryImplement<>();
 
     @Override
     public void saveAccount(Account account) {
@@ -27,6 +29,14 @@ public class AccountDAOMemoryImplementation implements AccountDAO{
     @Override
     public Collection<Account> getAccounts() {
         return memAccount.getAll();
+    }
+
+    @Override
+    public List<AccountEntry> getEntries() {
+        return memAccount.getAll().stream()
+                .map(Account::getEntryList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Override

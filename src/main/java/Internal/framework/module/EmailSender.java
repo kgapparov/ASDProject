@@ -1,17 +1,15 @@
 package Internal.framework.module;
 
-import java.sql.Timestamp;
-
 public class EmailSender implements Observer{
     StateNotifyer subject;
 
     public EmailSender(StateNotifyer subject) {
         this.subject = subject;
-        subject.register(this);
+        subject.registerObserver(this);
     }
 
     @Override
-    public void update(Account account, ActionType action) {
+    public void update(Account account) {
         System.out.println("Sending an email to - " + account.getCustomer().getClientName());
     }
 }
