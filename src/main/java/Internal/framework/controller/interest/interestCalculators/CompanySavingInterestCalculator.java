@@ -8,7 +8,9 @@ public class CompanySavingInterestCalculator extends InterestCalculator {
 
     @Override
     public double calculateInterest(Account account) {
-        return handleInterest(account);
+
+        System.out.println("xxx");
+        return handleInterest(account)*50;
     }
 
 }
