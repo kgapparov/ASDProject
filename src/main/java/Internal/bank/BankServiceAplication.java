@@ -1,18 +1,17 @@
 package Internal.bank;
 
-import Internal.framework.controller.AccountService;
+import Internal.bank.ui.CheckingAccountConcreteFactory;
+import Internal.bank.ui.SavingAccountConcreteFactory;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
-import Internal.framework.module.Individual;
 import Internal.framework.module.commands.*;
 import Internal.framework.controller.command.*;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
-import javax.swing.*;
 import java.time.LocalDate;
 
 public class BankServiceAplication extends AccountServiceApplicationFactory {
@@ -33,18 +32,20 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
     }
 
 
-
     @Override
-    public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber)
-    {
-        Account account;
-        if (type == AccountType.SAVING) {
-            account = new SavingAccount(customer, accountNumber);
-        } else {
-            account = new CheckingAccount(customer, accountNumber);
+    public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber) {
+
+        if(type == AccountType.CHECKING)
+        {
+            return new CheckingAccountConcreteFactory().createAccount(accountNumber,customer);
+
+        }else{
+            return new SavingAccountConcreteFactory().createAccount(accountNumber,customer);
+
         }
-        return account;
+
     }
+
 
     @Override
     public String buildReport() {
@@ -69,10 +70,10 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
                         entry.getAmount());
             }
 
-            billstring+= "\n----------------------------------------\n";
-            billstring+=String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
+            billstring += "\n----------------------------------------\n";
+            billstring += String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
         }
-                    System.out.println(billstring);
+        System.out.println(billstring);
         return billstring;
     }
 }

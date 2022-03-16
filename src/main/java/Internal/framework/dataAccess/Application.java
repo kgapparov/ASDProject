@@ -6,6 +6,9 @@ import Internal.bank.CheckingAccount;
 import Internal.bank.SavingAccount;
 import Internal.framework.controller.AccountServiceImpl;
 import Internal.framework.controller.AmountGreaterThan400;
+import Internal.framework.controller.interestCalculators.CompanySavingInterestCalculator;
+import Internal.framework.controller.interestCalculators.PersonalCheckingInterestCalculator;
+import Internal.framework.controller.interestCalculators.PersonalSavingInterestCalculator;
 import Internal.framework.module.*;
 import Internal.creditcard.CreditCardApplication;
 import Internal.framework.controller.AccountService;
@@ -25,8 +28,8 @@ public class Application {
 
         Customer customer = new Individual();
         customer.setClientName("Khassan");
-        Account savingAccount = new SavingAccount(customer, "11235");
-        Account checkingAccount = new CheckingAccount(customer, "11236");
+        Account savingAccount = new SavingAccount(customer, "11235",new PersonalSavingInterestCalculator());
+        Account checkingAccount = new CheckingAccount(customer, "11236",new PersonalCheckingInterestCalculator());
         GoldCreditCardFactory a = new GoldCreditCardFactory();
         Customer customerCompany = new Company();
         Account companyAccount = new SavingAccount(customerCompany,"111");
@@ -37,14 +40,17 @@ public class Application {
 
         Account goldenCreditCard= a.createAccount("123", customer);
         //deposit
-        savingAccount.deposit(100);
-        checkingAccount.deposit(100);
-        goldenCreditCard.deposit(100);
+        savingAccount.deposit(44444);
+        checkingAccount.deposit(44444);
+        goldenCreditCard.deposit(44444);
 
         //save
         accountDAO.saveAccount(savingAccount);
         accountDAO.saveAccount(checkingAccount);
         accountDAO.saveAccount(goldenCreditCard);
+
+        AccountServiceApplicationFactory accountServiceApplicationFactory1 = new BankServiceAplication();
+        accountServiceApplicationFactory1.createConcreteAccount(AccountType.CHECKING,customer,"123"  );
 
         System.out.println(accountDAO.loadAccount("11235").getCustomer().getClientName()+"-" + accountDAO.loadAccount("11235").getAccountType());
 
@@ -65,7 +71,7 @@ public class Application {
         System.out.println("CreditCard Account: " +goldenCreditCard.getBalance());
 
 
-        Account account = new SavingAccount(customer, "11235");
+        Account account =  accountServiceApplicationFactory1.createConcreteAccount(AccountType.CHECKING,customer,"11235"  );
         account.deposit(2000);
         accountDAO.saveAccount(account);
         account.addInterest();
@@ -74,10 +80,11 @@ public class Application {
 
         Customer customer2= new Individual();
         customer2.setClientName("Mahmoud Anwar");
-        Account account2 = new CheckingAccount(customer2, "55678");
+        Account account2 = new CheckingAccount(customer2, "55678",new CompanySavingInterestCalculator());
         account2.deposit(6000);
         account2.deposit(1000);
         accountDAO.saveAccount(account2);
+        account2.addInterest();
         account2.addInterest();
         account2.addInterest();
 
@@ -88,15 +95,15 @@ public class Application {
 
          reportCommand.execute();
 
-        AccountServiceApplicationFactory accountServiceApplicationFactory1 = new CreditCardApplication();
+        AccountServiceApplicationFactory creditCardApplication = new CreditCardApplication();
         AccountDAO accountDAO1 = new AccountDAOMemoryImplementation();
-        accountServiceApplicationFactory1.setAccountDAO(accountDAO1);
+        creditCardApplication.setAccountDAO(accountDAO1);
 
         ReportCommand reportCommand1 = new ReportCommand(accountServiceApplicationFactory1);
         reportCommand1.execute();
 
         //Observer
-        System.out.println("---------------------------");
+      /*  System.out.println("---------------------------");
         AccountServiceImpl accountService = new AccountServiceImpl();
         EmailSender emailSender = new EmailSender(accountService);
 //        EmailSender.getInstance(account);
@@ -108,6 +115,6 @@ public class Application {
         accountService.updateAccount(accountService.getAccount("12345"));
         accountService.deposit("12345", 100000);
 
-        System.out.println(accountService.getAccount("12345").getBalance());
+        System.out.println(accountService.getAccount("12345").getBalance());*/
     }
 }

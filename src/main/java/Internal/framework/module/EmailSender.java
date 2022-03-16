@@ -10,6 +10,8 @@ public class EmailSender implements Observer{
 
     @Override
     public void update(Account account) {
+
+
         System.out.println("Sending an email to - " + account.getCustomer().getClientName());
     }
 }
