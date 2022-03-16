@@ -9,13 +9,11 @@ public class MidInterestState extends State {
           return account.getBalance()* 0.25;
       }
         if(account.getBalance() < 1000){
-            super.interestCalculator= account.getInterest();
-            interestCalculator.setInterestState(new LowInterestState());
+            account.setInterestState(new LowInterestState());
 
         }else if(account.getBalance()>10000){
-            super.interestCalculator= account.getInterest();
-            interestCalculator.setInterestState(new HighInterestState());
+            account.setInterestState(new HighInterestState());
         }
-            return interestCalculator.handleInterest(account);
+            return account.getInterest().handleInterest(account);
     }
 }

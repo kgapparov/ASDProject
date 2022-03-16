@@ -7,9 +7,8 @@ public class LowInterestState extends State {
     @Override
     public double handleInterest(Account account) {
         if(account.getBalance() >= 1000){
-            super.interestCalculator= account.getInterest();
-            interestCalculator.setInterestState(new MidInterestState());
-            return interestCalculator.handleInterest(account);
+            account.setInterestState(new MidInterestState());
+            return account.getInterest().handleInterest(account);
         }else{
         return account.getBalance()* 0.10;
         }

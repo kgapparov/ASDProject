@@ -5,8 +5,5 @@ import Internal.framework.module.InterestCalculator;
 
 public abstract class State {
 
-      InterestCalculator interestCalculator;
-
-
    public abstract double handleInterest(Account account);
 }
