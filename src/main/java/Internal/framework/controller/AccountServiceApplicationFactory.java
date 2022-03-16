@@ -101,9 +101,23 @@ public abstract class AccountServiceApplicationFactory implements AccountService
     }
 
     @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public List<Observer> getNotificationObservers() {
+        return observers;
+    }
+
+    @Override
     public void sendNotification(Account account, ActionType action) {
-        for (Observer o : observers) {
-            o.update(account, action);
+        for (Observer observer : observers) {
+            observer.update(account, action);
         }
     }
 
