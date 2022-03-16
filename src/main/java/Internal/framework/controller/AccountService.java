@@ -5,7 +5,7 @@ import Internal.framework.module.*;
 
 import java.util.Collection;
 
-public interface AccountService extends StateNotifyer {
+public interface AccountService {
     Account createAccount(AccountType type, String accountNumber, String customerName);
     Account getAccount(String accountNumber);
     Collection<Account> getAllAccounts();
