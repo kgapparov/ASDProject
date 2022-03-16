@@ -1,7 +1,7 @@
 package Internal.bank;
 
 
-import Internal.framework.controller.interestCalculators.PersonalSavingInterestCalculator;
+import Internal.framework.controller.interest.interestCalculators.PersonalSavingInterestCalculator;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;

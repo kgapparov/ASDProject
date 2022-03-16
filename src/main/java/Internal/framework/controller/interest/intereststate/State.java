@@ -1,7 +1,6 @@
-package Internal.framework.controller.intereststate;
+package Internal.framework.controller.interest.intereststate;
 
 import Internal.framework.module.Account;
-import Internal.framework.module.InterestCalculator;
 
 public interface State {
 
