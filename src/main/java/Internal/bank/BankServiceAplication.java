@@ -7,10 +7,7 @@ import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
 import Internal.framework.module.Individual;
-import Internal.framework.module.commands.AddCustomerCommand;
-import Internal.framework.module.commands.AddInterestCommand;
-import Internal.framework.module.commands.DepositCommand;
-import Internal.framework.module.commands.WidthdrawCommand;
+import Internal.framework.module.commands.*;
 import Internal.framework.controller.command.*;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
@@ -32,6 +29,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         form.getInvoker().setCommand(2, new AddInterestCommand(service));
         form.getInvoker().setCommand(3, new AddCustomerCommand(service));
         form.getInvoker().setCommand(4, new ReportCommand(service));
+        form.getInvoker().setCommand(5, new ShowAccountRowCommand(form));
     }
 
 

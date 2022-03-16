@@ -7,6 +7,7 @@ import Internal.framework.module.Company;
 import Internal.framework.module.Customer;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
@@ -235,14 +236,8 @@ public class ApplicationFrm extends javax.swing.JFrame{
 
         if (newaccount){
             // add row to table
-            Customer newCustomer = new Company();
-            newCustomer.setClientName(clientName);
-            newCustomer.setCity(city);
-            newCustomer.setZip(zip);
-            newCustomer.setState(state);
-            newCustomer.setStreet(street);
-            accountService.getStorage().getCustomerDAO().saveCustomer(newCustomer);
-            accountService.createAccount(accountType, accountnr, newCustomer.getClientName());
+            invoker.getCommand(3).setParams("C", clientName, city, zip,state,street);
+            invoker.getCommand(3).execute();
             rowdata[0] = accountnr;
             rowdata[1] = clientName;
             rowdata[2] = city;
@@ -309,7 +304,13 @@ public class ApplicationFrm extends javax.swing.JFrame{
     {
         getInvoker().getCommand(2).execute();
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
+        invoker.getCommand(5).execute();
     }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
     static public void main(String args[])
     {
         try {
