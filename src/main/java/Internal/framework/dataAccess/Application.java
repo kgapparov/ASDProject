@@ -28,6 +28,12 @@ public class Application {
         Account savingAccount = new SavingAccount(customer, "11235");
         Account checkingAccount = new CheckingAccount(customer, "11236");
         GoldCreditCardFactory a = new GoldCreditCardFactory();
+        Customer customerCompany = new Company();
+        Account companyAccount = new SavingAccount(customerCompany,"111");
+        System.out.println(companyAccount);
+        companyAccount.deposit(100);
+        companyAccount.addInterest();
+        System.out.println(companyAccount.getBalance());
 
         Account goldenCreditCard= a.createAccount("123", customer);
         //deposit
@@ -46,6 +52,7 @@ public class Application {
         System.out.println("Saving Account: " +savingAccount.getBalance());
         System.out.println("Checking Account: " +checkingAccount.getBalance());
         System.out.println("CreditCard Account: " +goldenCreditCard.getBalance());
+        //System.out.println("CreditCard Account new Balance: " +goldenCreditCar);
 
         //add interest
         savingAccount.addInterest();

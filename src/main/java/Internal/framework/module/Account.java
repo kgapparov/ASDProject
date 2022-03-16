@@ -1,11 +1,9 @@
 package Internal.framework.module;
 
-import Internal.framework.controller.intereststate.LowInterestState;
-import Internal.framework.controller.intereststate.MidInterestState;
-import Internal.framework.controller.intereststate.State;
+import Internal.framework.controller.interest.intereststate.LowInterestState;
+import Internal.framework.controller.interest.intereststate.State;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class Account implements StateNotifyer {

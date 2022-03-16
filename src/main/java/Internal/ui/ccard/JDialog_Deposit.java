@@ -20,7 +20,7 @@ public class JDialog_Deposit extends JDialog
 		// what Visual Cafe can generate, or Visual Cafe may be unable to back
 		// parse your Java file into its visual environment.
 		//{{INIT_CONTROLS
-		setTitle("Deposit");
+		setTitle("DepositXXXXX");
 		setModal(true);
 		getContentPane().setLayout(null);
 		setSize(268,126);
