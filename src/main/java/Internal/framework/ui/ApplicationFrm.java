@@ -203,15 +203,12 @@ public class ApplicationFrm extends javax.swing.JFrame{
         pac.show();
 
         if (newaccount){
+
+            //Execute Customer Save Command
+            commands[3].setParams("I", clientName, city, zip, state, street);
+            commands[3].execute();
+
             // add row to table
-            Customer newCustomer = new Individual();
-            newCustomer.setClientName(clientName);
-            newCustomer.setCity(city);
-            newCustomer.setZip(zip);
-            newCustomer.setState(state);
-            newCustomer.setStreet(street);
-            accountService.getStorage().getCustomerDAO().saveCustomer(newCustomer);
-            accountService.createAccount(accountType, accountnr, clientName);
             rowdata[0] = accountnr;
             rowdata[1] = clientName;
             rowdata[2] = city;
@@ -311,8 +308,8 @@ public class ApplicationFrm extends javax.swing.JFrame{
 
     void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
     {
+        commands[2].execute();
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-
     }
     static public void main(String args[])
     {

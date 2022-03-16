@@ -1,11 +1,13 @@
 package Internal.bank;
 
+import Internal.framework.controller.AccountService;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
 import Internal.framework.module.Individual;
+import Internal.framework.module.commands.AddCustomerCommand;
 import Internal.framework.module.commands.AddInterestCommand;
 import Internal.framework.module.commands.DepositCommand;
 import Internal.framework.module.commands.WidthdrawCommand;
@@ -24,6 +26,7 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         form.setCommand(0, new DepositCommand(service));
         form.setCommand(1, new WidthdrawCommand(service));
         form.setCommand(2, new AddInterestCommand(service));
+        form.setCommand(3, new AddCustomerCommand(service));
     }
 
     @Override

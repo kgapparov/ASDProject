@@ -29,6 +29,6 @@ public class AddInterestCommand implements CommandInterface {
 
     @Override
     public void execute() {
-
+        serviceApplicationFactory.addInterest();
     }
 }

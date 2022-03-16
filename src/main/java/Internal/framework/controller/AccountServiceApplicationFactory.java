@@ -8,9 +8,11 @@ import Internal.framework.dataAccess.StorageFactory;
 import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AccountServiceApplicationFactory implements AccountService{
     private AccountDAO accountDAO;
@@ -51,14 +53,10 @@ public abstract class AccountServiceApplicationFactory implements AccountService
 
     public Account createAccount(AccountType type, String accountNumber, String customerName)
     {
-        Customer customer = getStorage().getCustomerDAO().loadCustomer(customerName);
-        Account acc;
-        if (customer != null) {
-            Account account = createConcreteAccount(type, customer, accountNumber);
-            accountDAO.saveAccount(account);
-            return account;
-        }
-        return null;
+        Optional<Customer> customer = Optional.ofNullable(getStorage().getCustomerDAO().loadCustomer(customerName));
+        Account acc = customer.map(x -> createConcreteAccount(type, x, accountNumber)).get();
+        accountDAO.saveAccount(acc);
+        return acc;
     }
 
     public abstract Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber);
@@ -109,4 +107,24 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         }
     }
 
+    public void run (AccountServiceApplicationFactory service, ApplicationFrm form) {
+        try {
+            // Add the following code if you want the Look and Feel
+            // to be set to the Look and Feel of the native system.
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Create a new instance of our application's frame, and make it visible.
+            service.createCommands(form, service);
+            service.init(EnvironmentType.MEMORY);
+            form.setAccountService(service);
+            form.setVisible(true);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            //Ensure the application exits with an error condition.
+            System.exit(1);
+        }
+    }
 }
