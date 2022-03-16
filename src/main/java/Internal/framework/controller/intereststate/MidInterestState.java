@@ -2,7 +2,7 @@ package Internal.framework.controller.intereststate;
 
 import Internal.framework.module.Account;
 
-public class MidInterestState extends State {
+public class MidInterestState implements State {
     @Override
     public double handleInterest(Account account){
       if(account.getBalance()>1000 && account.getBalance()<10000){

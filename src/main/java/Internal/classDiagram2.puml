@@ -25,7 +25,16 @@ interface ProductFactory {
     +createInterest();
 }
 'new Account product with subclasses
-abstract Account
+abstract Account{
++getinterest
++getInterestState
++addInterest()
++deposit(double amount)
++withdraw(double amount)
++addEntry(AccountEntry entry)
++getCustomer()
++getAccountType()
+}
 class CheckingAccount
 class SavingAccount
 
@@ -48,6 +57,17 @@ class SavingAccount
 
 
  interface state{
+ handleInterest()
+ }
+
+ class lowInterestState{
+ handleInterest()
+ }
+ class midInterestState{
+ handleInterest()
+ }
+ class highInterestState{
+ handleInterest()
  }
 
 'diagram
@@ -74,10 +94,10 @@ AccountServiceApplicationFactory ..> ProductFactory
 Account <-- AccountServiceApplicationFactory
 
  Account -->InterestCalculator
-InterestCalculator --> state
-lowIntersetState ..|> state
-midIntersetState ..|> state
-highIntersetState ..|> state
+Account --> state
+  lowInterestState ..|> state
+  midInterestState ..|> state
+  highInterestState ..|> state
  InterestCalculator <|--PersonalSavingInterestCalculator
  InterestCalculator <|--PersonalCheckingInterestCalculator
  InterestCalculator <|--CompanySavingInterestCalculator

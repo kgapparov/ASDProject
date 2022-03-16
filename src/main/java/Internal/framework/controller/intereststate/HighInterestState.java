@@ -2,7 +2,7 @@ package Internal.framework.controller.intereststate;
 
 import Internal.framework.module.Account;
 
-public class HighInterestState extends  State  {
+public class HighInterestState implements   State  {
 
 
 

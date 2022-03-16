@@ -2,7 +2,7 @@ package Internal.framework.controller.intereststate;
 
 import Internal.framework.module.Account;
 
-public class LowInterestState extends State {
+public class LowInterestState implements State {
 
     @Override
     public double handleInterest(Account account) {
