@@ -1,12 +1,13 @@
 package Internal.creditcard.controller;
 
+import Internal.creditcard.model.CreditCardAccount;
 import Internal.creditcard.ui.CardFrm;
-import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.controller.EnvironmentType;
+import Internal.framework.controller.factory.AccountServiceApplicationFactory;
+import Internal.framework.model.EnvironmentType;
 import Internal.framework.controller.factory.CompanyConcreteFactory;
 import Internal.framework.controller.factory.PersonalConcreteFactory;
-import Internal.framework.module.*;
-import Internal.framework.ui.ApplicationFrm;
+import Internal.framework.model.*;
+import Internal.bank.ui.ApplicationFrm;
 
 import java.time.LocalDate;
 

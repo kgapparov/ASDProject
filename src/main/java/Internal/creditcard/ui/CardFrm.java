@@ -1,12 +1,11 @@
 package Internal.creditcard.ui;
 
-import Internal.creditcard.commands.ShowCreditAccountRowCommand;
-import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.controller.command.Invoker;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.CustomerType;
-import Internal.framework.module.commands.AddInterestCommand;
-import Internal.ui.ccard.JDialog_AddCompAcc;
+import Internal.framework.controller.commands.ShowCreditAccountRowCommand;
+import Internal.framework.controller.factory.AccountServiceApplicationFactory;
+import Internal.framework.controller.commands.Invoker;
+import Internal.framework.model.AccountType;
+import Internal.framework.model.CustomerType;
+import Internal.framework.controller.commands.AddInterestCommand;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

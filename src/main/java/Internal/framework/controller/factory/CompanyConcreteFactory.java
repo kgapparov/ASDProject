@@ -1,10 +1,12 @@
 package Internal.framework.controller.factory;
 
 
-import Internal.bank.CheckingAccount;
+import Internal.bank.model.CheckingAccount;
+import Internal.bank.model.SavingAccount;
+import Internal.creditcard.model.*;
 import Internal.framework.controller.interest.interestCalculators.CompanyCheckingInterestCalculator;
 import Internal.framework.controller.interest.interestCalculators.CompanySavingInterestCalculator;
-import Internal.framework.module.*;
+import Internal.framework.model.*;
 
 
 public class CompanyConcreteFactory extends AccountFactory {
@@ -26,7 +28,7 @@ public class CompanyConcreteFactory extends AccountFactory {
         else if (accountType == AccountType.CHECKING)
             return new CheckingAccount(customer, accountNumber, new CompanyCheckingInterestCalculator());
         else if (accountType == AccountType.SAVING)
-            return new CheckingAccount(customer, accountNumber, new CompanySavingInterestCalculator());
+            return new SavingAccount(customer, accountNumber, new CompanySavingInterestCalculator());
 
         else return null;
     }

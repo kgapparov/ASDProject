@@ -3,10 +3,10 @@ package Internal.creditcard.ui;
 		A basic implementation of the JDialog class.
 */
 
-import Internal.creditcard.commands.CardCustomerCreateCommand;
-import Internal.creditcard.commands.CreditcardCompanyCreateCommand;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.CustomerType;
+import Internal.framework.controller.commands.CardCustomerCreateCommand;
+import Internal.framework.controller.commands.CreditcardCompanyCreateCommand;
+import Internal.framework.model.AccountType;
+import Internal.framework.model.CustomerType;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
@@ -225,41 +225,7 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
        dispose();
 	}
 
-	void JButtonOKCompany_actionPerformed(java.awt.event.ActionEvent event)
-	{
-		parentframe.clientName=JTextField_NAME.getText();
-		parentframe.street=JTextField_STR.getText();
-		parentframe.city=JTextField_CT.getText();
-		parentframe.zip=JTextField_ZIP.getText();
-		parentframe.state=JTextField_ST.getText();
-		parentframe.ccnumber=JTextField_CCNR.getText();
-		parentframe.expdate=JTextField_ExpDate.getText();
-		if (JRadioButton_Gold.isSelected())
-			parentframe.accountType= AccountType.GOLDEN;
-		else{
-			if (JRadioButton_Silver.isSelected())
-				parentframe.accountType= AccountType.SILVER;
-			else
-				parentframe.accountType= AccountType.BRONZE;
-		}
-		//createCustomer
-		parentframe.getInvoker().setCommand(0, new CreditcardCompanyCreateCommand(parentframe.getAccountService()));
-		parentframe.getInvoker().getCommand(0).setParams(
-				parentframe.clientName,
-				parentframe.city,
-				parentframe.zip,
-				parentframe.state,
-				parentframe.street
-		);
-		parentframe.getInvoker().getCommand(0).execute();
-		//create account
-		parentframe.getAccountService().createConcreteAccount(parentframe.accountType,
-				parentframe.getAccountService().getStorage().getCustomerDAO().loadCustomer(parentframe.clientName),
-				parentframe.ccnumber
-		);
-		parentframe.newaccount=true;
-		dispose();
-	}
+
 
 	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
 	{

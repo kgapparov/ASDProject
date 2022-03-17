@@ -1,11 +1,8 @@
 package Internal.framework.dataAccess;
 
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountEntry;
-import Internal.framework.module.AccountEntry;
-import Internal.framework.module.Customer;
+import Internal.framework.model.Account;
+import Internal.framework.model.AccountEntry;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

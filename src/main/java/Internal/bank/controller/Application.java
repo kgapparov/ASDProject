@@ -1,9 +1,9 @@
 package Internal.bank.controller;
 
 import Internal.bank.ui.BankApplicationForm;
-import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.module.BankEmailSender;
-import Internal.framework.ui.ApplicationFrm;
+import Internal.framework.controller.factory.AccountServiceApplicationFactory;
+import Internal.framework.controller.observer.BankEmailSender;
+import Internal.bank.ui.ApplicationFrm;
 
 public class Application {
     public static void main(String[] args) {

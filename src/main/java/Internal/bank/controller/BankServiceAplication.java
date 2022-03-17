@@ -3,15 +3,14 @@ package Internal.bank.controller;
 import Internal.framework.controller.factory.CompanyConcreteFactory;
 import Internal.framework.controller.factory.PersonalConcreteFactory;
 import Internal.creditcard.ui.CardFrm;
-import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.Customer;
-import Internal.framework.module.commands.*;
-import Internal.framework.controller.command.*;
-import Internal.framework.module.*;
-import Internal.framework.ui.ApplicationFrm;
+import Internal.framework.controller.factory.AccountServiceApplicationFactory;
+import Internal.framework.model.EnvironmentType;
+import Internal.framework.model.Account;
+import Internal.framework.model.AccountType;
+import Internal.framework.model.Customer;
+import Internal.framework.controller.commands.*;
+import Internal.framework.model.*;
+import Internal.bank.ui.ApplicationFrm;
 
 import java.time.LocalDate;
 

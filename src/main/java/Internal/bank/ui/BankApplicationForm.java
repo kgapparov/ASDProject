@@ -1,8 +1,5 @@
 package Internal.bank.ui;
 
-import Internal.framework.ui.ApplicationFrm;
-import Internal.framework.ui.JDialogGenBill;
-
 import java.awt.event.ActionEvent;
 
 public class BankApplicationForm extends ApplicationFrm {

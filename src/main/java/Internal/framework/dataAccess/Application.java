@@ -1,12 +1,12 @@
 package Internal.framework.dataAccess;
 
-import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.*;
+import Internal.framework.model.EnvironmentType;
+import Internal.framework.model.*;
 import Internal.creditcard.controller.CreditCardApplication;
-import Internal.framework.controller.AccountServiceApplicationFactory;
-import Internal.framework.module.Account;
-import Internal.framework.module.Customer;
-import Internal.framework.module.Individual;
+import Internal.framework.controller.factory.AccountServiceApplicationFactory;
+import Internal.framework.model.Account;
+import Internal.framework.model.Customer;
+import Internal.framework.model.Individual;
 
 public class Application {
     public static void main(String[] args) {
