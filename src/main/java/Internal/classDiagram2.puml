@@ -40,7 +40,7 @@ ApplicationFrm --> AccountServiceApplicationFactory
 CardFrm --> Invoker
 CardFrm --> AccountServiceApplicationFactory
 
-class CreditCarApplication {
+class CreditCardApplication {
     +createCommand();
     +buildReport();
     +createConcreteAccount();
@@ -191,8 +191,8 @@ class CreditCardEmailSender
 
 Observer .. StateNotifyer
 CreditCardEmailSender ..|> Observer
-CreditCardEmailSender <--BankServiceApplication
-BankEmailSender <--CreditCarApplication
+CreditCardEmailSender <--CreditCardApplication
+BankEmailSender <--BankServiceApplication
 BankEmailSender ..|> Observer
 
 AccountServiceApplicationFactory ..|> StateNotifyer
@@ -200,7 +200,7 @@ AccountServiceApplicationFactory ..|> StateNotifyer
 
 AccountServiceApplicationFactory ..|> AccountService
 BankServiceApplication --|> AccountServiceApplicationFactory
-CreditCarApplication --|> AccountServiceApplicationFactory
+CreditCardApplication --|> AccountServiceApplicationFactory
 
 AccountServiceApplicationFactory --> StorageFactory
 Account <-- AccountServiceApplicationFactory
