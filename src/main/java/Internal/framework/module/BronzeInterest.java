@@ -10,9 +10,4 @@ public class BronzeInterest extends InterestCalculator {
     }
 
 
-    @Override
-    public double calculateBalance(double prevBalance, double totalCredit, double totalCharge) {
-        return prevBalance - totalCredit + totalCharge + 0.1 * (prevBalance - totalCredit);
-    }
-
 }
