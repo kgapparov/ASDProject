@@ -1,16 +1,20 @@
 package Internal.creditcard;
 
+import Internal.bank.ui.CheckingAccountConcreteFactory;
+import Internal.bank.ui.SavingAccountConcreteFactory;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.CreditCardAccount;
-import Internal.framework.module.Customer;
+import Internal.framework.controller.interest.interestCalculators.PersonalCheckingInterestCalculator;
+import Internal.framework.module.*;
 import Internal.framework.ui.ApplicationFrm;
 
 import java.time.LocalDate;
 
 public class CreditCardApplication extends AccountServiceApplicationFactory {
+    public CreditCardApplication() {
+
+    }
+
     @Override
     public void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service) {
 
@@ -18,12 +22,20 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
 
     @Override
     public void init(EnvironmentType envType) {
+        setEnvType(envType);
 
     }
 
     @Override
     public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
-        return null;
+        if(accountType == AccountType.BRONZE)
+        {
+            return new BronzeAccount(customer,accountNumber,new PersonalCheckingInterestCalculator());
+
+        }else{
+            return new SavingAccountConcreteFactory().createAccount(accountNumber,customer);
+
+        }
     }
 
     @Override

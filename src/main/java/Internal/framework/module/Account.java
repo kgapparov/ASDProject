@@ -21,7 +21,11 @@ public abstract class Account {
         this.interest = interest;
         this.accountType = accountType;
     }
-
+    public Account(Customer customer, String accountNumber,InterestCalculator interest) {
+        this.customer = customer;
+        this.accountNumber = accountNumber;
+        this.interest = interest;
+    }
     public InterestCalculator getInterest() {
         return interest;
     }
@@ -52,11 +56,7 @@ public abstract class Account {
         this.interest = interestCalculator;
     }
 
-    public Account(Customer customer, String accountNumber,InterestCalculator interest) {
-        this.customer = customer;
-        this.accountNumber = accountNumber;
-        this.interest = interest;
-    }
+
 
     public void setInterest(InterestCalculator interest) {
         this.interest = interest;

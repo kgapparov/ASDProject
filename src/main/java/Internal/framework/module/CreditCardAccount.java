@@ -12,6 +12,10 @@ public class CreditCardAccount extends Account {
         this.minimumPaymentStrategy = minimumPaymentStrategy;
     }
 
+    public CreditCardAccount(Customer customer, String accountNumber,InterestCalculator interest) {
+        super(customer,accountNumber,interest);
+    }
+
     public String getExpireDate() { return expireDate;}
 
     public MinimumPaymentStrategy getMinimumPaymentStrategy() { return minimumPaymentStrategy; }
