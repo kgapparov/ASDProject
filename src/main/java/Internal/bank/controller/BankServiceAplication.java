@@ -1,13 +1,10 @@
-package Internal.bank;
+package Internal.bank.controller;
 
-import Internal.bank.ui.CheckingAccountConcreteFactory;
-import Internal.bank.ui.SavingAccountConcreteFactory;
-import Internal.creditcard.controller.CompanyConcreteFactory;
-import Internal.creditcard.controller.PersonalConcreteFactory;
+import Internal.framework.controller.factory.CompanyConcreteFactory;
+import Internal.framework.controller.factory.PersonalConcreteFactory;
 import Internal.creditcard.ui.CardFrm;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.Account;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
