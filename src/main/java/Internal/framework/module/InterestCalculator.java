@@ -9,9 +9,7 @@ public abstract class InterestCalculator {
         return account.getInterestState().handleInterest(account);
     }
 
-    public  double calculateBalance(double prevBalance, double totalCredit, double totalCharge){
-        return 0;
-    }
+
 
 
 }

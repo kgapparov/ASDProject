@@ -10,6 +10,7 @@ public class CreditCardAccount extends Account {
                              MinimumPaymentStrategy minimumPaymentStrategy, AccountType type) {
         super(customer, accountNumber, interest, type);
         this.minimumPaymentStrategy = minimumPaymentStrategy;
+
     }
 
     public String getExpireDate() { return expireDate;}
@@ -47,12 +48,13 @@ public class CreditCardAccount extends Account {
     }
 
     public double getNewBalance() {
-        return getInterest().calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge());
+
+        return minimumPaymentStrategy.calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge(), minimumPaymentStrategy.calculateMinimumPayment(getBalance()) );
 
     }
 
     public double getTotalDue() {
-        return getInterest().calculateInterest(this);
+        return minimumPaymentStrategy.calculateMinimumPayment(getNewBalance())* getNewBalance();
     }
 
 }

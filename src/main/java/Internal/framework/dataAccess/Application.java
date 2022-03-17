@@ -33,11 +33,17 @@ public class Application {
         companyAccount.addInterest();
         System.out.println(companyAccount.getBalance());
 
-        Account goldenCreditCard= a.createAccount("123", customer);
+        CreditCardAccount goldenCreditCard= (CreditCardAccount) a.createAccount("123", customer);
+
         //deposit
         savingAccount.deposit(44444);
         checkingAccount.deposit(44444);
-        goldenCreditCard.deposit(44444);
+        goldenCreditCard.deposit(1000);
+
+        System.out.println("casting done");
+        System.out.println("new balance " + goldenCreditCard.getNewBalance());
+        System.out.println("total due " + goldenCreditCard.getTotalDue());
+        System.out.println("done new balance");
 
         //save
         accountDAO.saveAccount(savingAccount);
