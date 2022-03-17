@@ -162,7 +162,7 @@ public class JDialog_AddCompAcc extends JDialog
 		newCustomer.setState(parentframe.state);
 		newCustomer.setClientName(parentframe.clientName);
 		parentframe.getAccountService().getStorage().getCustomerDAO().saveCustomer(newCustomer);
-		parentframe.getAccountService().createAccount(parentframe.accountType, parentframe.accountnr, parentframe.clientName);
+		parentframe.getAccountService().createConcreteAccount(parentframe.accountType, newCustomer, parentframe.clientName);
 	   dispose();
 	}
 

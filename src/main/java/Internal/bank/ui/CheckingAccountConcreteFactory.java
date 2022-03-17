@@ -7,15 +7,14 @@ import Internal.framework.controller.interest.interestCalculators.PersonalChecki
 import Internal.framework.module.*;
 
 
-public class CheckingAccountConcreteFactory extends AccountFactory {
+public class CheckingAccountConcreteFactory   {
 
     public String getAccountType() {
         return AccountType.CHECKING.name();
     }
 
 
-    @Override
-    public Account createAccount(String accountNumber, Customer customer) {
+     public Account createAccount(String accountNumber, Customer customer) {
         if (customer.getCustomerType() == CustomerType.COMPANY)
             return new CheckingAccount(customer, accountNumber, new CompanyCheckingInterestCalculator());
         else

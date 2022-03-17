@@ -3,21 +3,16 @@ package Internal.creditcard.commands;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.module.Company;
 import Internal.framework.module.Customer;
-import Internal.framework.module.CustomerType;
 import Internal.framework.module.Individual;
 import Internal.framework.module.commands.CommandInterface;
 
-import javax.imageio.stream.ImageInputStream;
-
-public class CardCustomerCreateCommand implements CommandInterface {
+public class CreditcardCompanyCreateCommand implements CommandInterface {
     private final AccountServiceApplicationFactory service;
-    private CustomerType customerType;
 
     private Customer customer;
 
-    public CardCustomerCreateCommand(AccountServiceApplicationFactory service, CustomerType customerType) {
+    public CreditcardCompanyCreateCommand(AccountServiceApplicationFactory service) {
         this.service = service;
-        this.customerType = customerType;
     }
 
     @Override
@@ -27,14 +22,7 @@ public class CardCustomerCreateCommand implements CommandInterface {
 
     @Override
     public void setParams(String... args) {
-       // if(args[5]== )
-        if (customerType== CustomerType.INDIVIDUAL) {
-            customer = new Individual();
-
-        }else{
-            customer = new Company();
-
-        }
+        customer = new Company();
         String clientName, city, zip, state, street;
         clientName  = args[0];
         city        = args[1];

@@ -5,4 +5,8 @@ public class BronzeAccount extends CreditCardAccount {
                          MinimumPaymentStrategy paymentStrategy) {
         super(customer, accountNumber, interest, paymentStrategy, AccountType.BRONZE);
     }
+
+    public BronzeAccount(Customer customer, String accNum,InterestCalculator interestCalculator) {
+        super(customer, accNum,interestCalculator);
+    }
 }
