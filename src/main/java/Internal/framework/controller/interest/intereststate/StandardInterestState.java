@@ -1,6 +1,6 @@
 package Internal.framework.controller.interest.intereststate;
 
-import Internal.framework.module.Account;
+import Internal.framework.model.Account;
 
 public class StandardInterestState implements State{
 

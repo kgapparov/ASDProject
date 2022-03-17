@@ -1,6 +1,6 @@
 package Internal.framework.dataAccess;
 
-import Internal.framework.module.AccountEntry;
+import Internal.framework.model.AccountEntry;
 
 import java.util.Collection;
 

@@ -1,9 +1,9 @@
 package Internal.ui.ccard;
 
-import Internal.bank.BankServiceAplication;
+import Internal.bank.controller.BankServiceAplication;
 import Internal.bank.ui.BankApplicationForm;
-import Internal.framework.module.BankEmailSender;
-import Internal.framework.ui.ApplicationFrm;
+import Internal.framework.controller.observer.BankEmailSender;
+import Internal.bank.ui.ApplicationFrm;
 
 import java.awt.BorderLayout;
 

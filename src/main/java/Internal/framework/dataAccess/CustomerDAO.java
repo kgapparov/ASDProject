@@ -1,6 +1,6 @@
 package Internal.framework.dataAccess;
 
-import Internal.framework.module.Customer;
+import Internal.framework.model.Customer;
 
 import java.util.Collection;
 

@@ -1,7 +1,6 @@
 package Internal.creditcard.ui;
 
-import Internal.framework.module.commands.DepositCommand;
-import Internal.framework.module.commands.WidthdrawCommand;
+import Internal.framework.controller.commands.WidthdrawCommand;
 
 import javax.swing.*;
 import java.awt.*;
