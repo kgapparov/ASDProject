@@ -2,22 +2,19 @@ package Internal.framework.dataAccess;
 
 import Internal.bank.CheckingAccount;
 import Internal.bank.BankServiceAplication;
-import Internal.bank.CheckingAccount;
 import Internal.bank.SavingAccount;
 import Internal.framework.controller.EnvironmentType;
 import Internal.framework.controller.interest.interestCalculators.CompanySavingInterestCalculator;
 import Internal.framework.controller.interest.interestCalculators.PersonalCheckingInterestCalculator;
 import Internal.framework.controller.interest.interestCalculators.PersonalSavingInterestCalculator;
 import Internal.framework.module.*;
-import Internal.creditcard.CreditCardApplication;
-import Internal.framework.controller.AccountService;
+import Internal.creditcard.controller.CreditCardApplication;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.command.Invoker;
 import Internal.framework.controller.command.ReportCommand;
 import Internal.framework.module.Account;
 import Internal.framework.module.Customer;
 import Internal.framework.module.Individual;
-import Internal.framework.ui.ApplicationFrm;
 
 public class Application {
     public static void main(String[] args) {
