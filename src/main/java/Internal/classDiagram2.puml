@@ -6,24 +6,101 @@ interface AccountService {
     +deposit();
     +withdrow();
     +addInterest();
+    +buildReport();
+    +sendNotification();
 }
 
 abstract AccountServiceApplicationFactory{
-    +{abstract}createAccount();
+    +{abstract}buildReport()
+    +{abstract}init();
+    +{abstract}createConcreteAccount()
     +deposit();
     +withdrow();
     +addInterest();
     +getAllAccounts();
     +getAccount();
+    +sendNotification();
 }
 
-
-
-interface ProductFactory {
-    +createAccount();
-    +createNotifyer();
-    +createInterest();
+class Invoker {}
+interface CommandInterface{
+    +getTitle();
+    +setParams();
+    +execute();
 }
+
+CommandInterface <|.. ReportCommand
+CommandInterface <|.. AddInterestCommand
+
+
+Invoker --> CommandInterface
+ApplicationFrm --> Invoker
+ApplicationFrm --> AccountServiceApplicationFactory
+
+CardFrm --> Invoker
+CardFrm --> AccountServiceApplicationFactory
+
+class CreditCarApplication {
+    +createCommand();
+    +buildReport();
+    +createConcreteAccount();
+    +init();
+}
+
+class BankServiceApplication {
+    +createCommand();
+    +buildReport();
+    +createConcreteAccount();
+    +init();
+}
+
+interface StorageFactory {
+    +getAccountDAO();
+    +getCustomerDAO();
+    +getAccountEntryDAO();
+}
+StorageFactory --> AccountDAO
+StorageFactory --> CustomerDAO
+StorageFactory --> AccountEntryDAO
+interface AccountDAO {
+    +saveAccount()
+    +updateAccount()
+    +getAccounts()
+    +getEntries()
+    +loadAccount()
+}
+
+interface CustomerDAO {
+    +saveCustomer()
+    +updateCustomer();
+    +getCustomers();
+    +loadCustomer();
+}
+interface AccountEntryDAO {
+    +saveAccountEntry();
+    +updateAccountEntry();
+    +getAccountEntries();
+    +loadAccountEntries();
+}
+
+interface CommonDAO {
+    +save();
+    +update();
+    +getAll();
+    +load();
+}
+class CommonDAOMemoryImplementation
+CommonDAOMemoryImplementation ..|> CommonDAO
+
+AccountDAOMemoryImplementation ..|> AccountDAO
+AccountDAOMemoryImplementation --> CommonDAOMemoryImplementation
+
+CustomerDAOMemoryImplementation ..|> CustomerDAO
+CustomerDAOMemoryImplementation --> CommonDAOMemoryImplementation
+
+AccountEntryDAOMemoryImplementation ..|> AccountEntryDAO
+AccountEntryDAOMemoryImplementation --> CommonDAOMemoryImplementation
+
 'new Account product with subclasses
 abstract Account{
 +getinterest
@@ -39,8 +116,9 @@ class CheckingAccount
 class SavingAccount
 
 
- abstract InterestCalculator{
+ interface InterestCalculator{
  calcInterest()
+ interestRateValue();
  }
  class PersonalSavingInterestCalculator{
  calcInterest()
@@ -54,8 +132,30 @@ class SavingAccount
  class CompanyCheckingInterestCalculator{
  calcInterest()
  }
+ class BronzeInterestCalculator
+ class GoldInterestCalculator
+ class SilverInterestCalculator
+
+BronzeInterestCalculator ..|> InterestCalculator
+SilverInterestCalculator ..|> InterestCalculator
+GoldInterestCalculator ..|> InterestCalculator
+
+interface MinimumPaymentStrategy {
+    +calculateMinimumPayment();
+    +minimumPaymentRateValue();
+}
+
+BronzeMinimumStrategy ..|> MinimumPaymentStrategy
+SilverMinimumStrategy..|> MinimumPaymentStrategy
+GoldMinimumStrategy..|> MinimumPaymentStrategy
 
 
+CreditCardAccount --|> Account
+BronzeAccount --|>CreditCardAccount
+SilverAccount --|> CreditCardAccount
+GoldAccount --|> CreditCardAccount
+
+CreditCardAccount --> MinimumPaymentStrategy
  interface state{
  handleInterest()
  }
@@ -76,21 +176,33 @@ SavingAccount --|> Account
 
 
 'Observer pattern for notifiyer
-interface Subject
-Interface Observer
-class EmailObserver
+interface StateNotifyer {
+    +registerObserver();
+    +removeOberver();
+    +sendNotification();
+}
 
-Observer --> Subject
-EmailObserver ..|> Observer
+Interface Observer {
+    +update();
+}
 
-AccountServiceApplicationFactory --> Subject
+
+class CreditCardEmailSender
+
+Observer .. StateNotifyer
+CreditCardEmailSender ..|> Observer
+CreditCardEmailSender <--BankServiceApplication
+BankEmailSender <--CreditCarApplication
+BankEmailSender ..|> Observer
+
+AccountServiceApplicationFactory ..|> StateNotifyer
 
 
 AccountServiceApplicationFactory ..|> AccountService
-AccountServiceImpl --|> AccountServiceApplicationFactory
-CCardServiceImpl --|> AccountServiceApplicationFactory
+BankServiceApplication --|> AccountServiceApplicationFactory
+CreditCarApplication --|> AccountServiceApplicationFactory
 
-AccountServiceApplicationFactory ..> ProductFactory
+AccountServiceApplicationFactory --> StorageFactory
 Account <-- AccountServiceApplicationFactory
 
  Account -->InterestCalculator
@@ -98,9 +210,9 @@ Account --> state
   lowInterestState ..|> state
   midInterestState ..|> state
   highInterestState ..|> state
- InterestCalculator <|--PersonalSavingInterestCalculator
- InterestCalculator <|--PersonalCheckingInterestCalculator
- InterestCalculator <|--CompanySavingInterestCalculator
- InterestCalculator <|--CompanyCheckingInterestCalculator
+ InterestCalculator <|..PersonalSavingInterestCalculator
+ InterestCalculator <|..PersonalCheckingInterestCalculator
+ InterestCalculator <|..CompanySavingInterestCalculator
+ InterestCalculator <|..CompanyCheckingInterestCalculator
 
 @enduml
