@@ -26,20 +26,29 @@ interface StorageFactory {
 abstract Account
 class CheckingAccount
 class SavingAccount
+class CreditCardAccount
+class BronzeAccount
+class SilverAccount
+class GoldAccount
 'diagram
 CheckingAccount --|> Account
 SavingAccount --|> Account
-
+CreditCardAccount --|> Account
+GoldAccount --|> CreditCardAccount
+SilverAccount --|> CreditCardAccount
+BronzeAccount --|> CreditCardAccount
 
 'Observer pattern for notifiyer
-interface Subject
+interface StateNotifyer
 Interface Observer
-class EmailObserver
+class BankEmailSender
+class CreditCardEmailSender
 
-Observer --> Subject
-EmailObserver ..|> Observer
+Observer --> StateNotifyer
+BankEmailSender ..|> Observer
+CreditCardEmailSender ..|> Observer
 
-AccountServiceApplicationFactory --> Subject
+AccountServiceApplicationFactory --> StateNotifyer
 
 abstract class InterestState {
     +getInterest();

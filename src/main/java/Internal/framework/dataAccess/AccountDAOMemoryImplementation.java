@@ -2,7 +2,6 @@ package Internal.framework.dataAccess;
 
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountEntry;
-import Internal.framework.module.Transaction;
 import Internal.framework.module.AccountEntry;
 import Internal.framework.module.Customer;
 
