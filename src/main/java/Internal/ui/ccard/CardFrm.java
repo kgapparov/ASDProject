@@ -2,7 +2,7 @@ package Internal.ui.ccard;
 
 import Internal.bank.BankServiceAplication;
 import Internal.bank.ui.BankApplicationForm;
-import Internal.framework.module.EmailSender;
+import Internal.framework.module.BankEmailSender;
 import Internal.framework.ui.ApplicationFrm;
 
 import java.awt.BorderLayout;
@@ -243,7 +243,7 @@ public class CardFrm extends javax.swing.JFrame
 	{
 
 		BankServiceAplication application = new BankServiceAplication();
-		application.registerObserver(new EmailSender());
+		application.registerObserver(new BankEmailSender());
 		ApplicationFrm form = new BankApplicationForm();
 		application.run(application, form);
 		newInstance.setVisible(false);
