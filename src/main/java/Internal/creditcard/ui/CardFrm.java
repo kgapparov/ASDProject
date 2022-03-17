@@ -3,6 +3,8 @@ package Internal.creditcard.ui;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.command.Invoker;
 import Internal.framework.module.AccountType;
+import Internal.framework.module.CustomerType;
+import Internal.ui.ccard.JDialog_AddCompAcc;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -76,25 +78,35 @@ public class CardFrm extends javax.swing.JFrame
         JTable1.setBounds(0, 0, 420, 0);
 //        rowdata = new Object[8];
 		
-		JButton_NewCCAccount.setText("Add Credit-card account");
+		JButton_NewCCAccount.setText("Add Credit-card Personal account");
 		JPanel1.add(JButton_NewCCAccount);
 		JButton_NewCCAccount.setBounds(24,20,192,33);
-		JButton_GenBill.setText("Generate Monthly bills");
-		JButton_GenBill.setActionCommand("jbutton");
-		JPanel1.add(JButton_GenBill);
-		JButton_GenBill.setBounds(240,20,192,33);
+
+		JButton_NewCompanyCCAccount.setText("Add Credit-card Company account");
+		JPanel1.add(JButton_NewCompanyCCAccount);
+ 		JButton_NewCompanyCCAccount.setBounds(240,20,192,33);
+
+
+
 		JButton_Deposit.setText("Deposit");
 		JPanel1.add(JButton_Deposit);
 		JButton_Deposit.setBounds(468,104,96,33);
 		JButton_Withdraw.setText("Charge");
 		JPanel1.add(JButton_Withdraw);
 		JButton_Withdraw.setBounds(468,164,96,33);
+
+		JButton_GenBill.setText("Generate Monthly bills");
+		JButton_GenBill.setActionCommand("jbutton");
+		JPanel1.add(JButton_GenBill);
+		JButton_GenBill.setBounds(468,248,96,33);
+
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
 		JButton_Interest.setText("Add Interest");
 		JPanel1.add(JButton_Interest);
 		JButton_Interest.setBounds(468,20,96,31);
+		JButton_Exit.setBounds(468,308,96,31);
 
 
 		JButton_GenBill.setActionCommand("jbutton");
@@ -104,11 +116,12 @@ public class CardFrm extends javax.swing.JFrame
 		SymAction lSymAction = new SymAction();
 		JButton_Exit.addActionListener(lSymAction);
 		JButton_NewCCAccount.addActionListener(lSymAction);
+		JButton_NewCompanyCCAccount.addActionListener(lSymAction);
 		JButton_GenBill.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
 		JButton_Withdraw.addActionListener(lSymAction);
 		JButton_Interest.addActionListener(lSymAction);
-		
+
 	}
 
 	
@@ -143,6 +156,7 @@ public class CardFrm extends javax.swing.JFrame
 
 	javax.swing.JPanel JPanel1 = new javax.swing.JPanel();
 	javax.swing.JButton JButton_NewCCAccount = new javax.swing.JButton();
+	javax.swing.JButton JButton_NewCompanyCCAccount = new javax.swing.JButton();
 	javax.swing.JButton JButton_GenBill = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
 	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
@@ -195,6 +209,8 @@ public class CardFrm extends javax.swing.JFrame
 				JButtonInterest_actionPerformed(event);
 			else if (object == JButton_NewCCAccount)
 				JButtonNewCCAC_actionPerformed(event);
+			else if (object == JButton_NewCompanyCCAccount)
+				JButtonNewCompanyCCAC_actionPerformed(event);
 			else if (object == JButton_GenBill)
 				JButtonGenerateBill_actionPerformed(event);
 			else if (object == JButton_Deposit)
@@ -220,7 +236,7 @@ public class CardFrm extends javax.swing.JFrame
 		 set the boundaries and show it 
 		*/
 		
-		JDialog_AddCCAccount ccac = new JDialog_AddCCAccount(thisframe);
+		JDialog_AddCCAccount ccac = new JDialog_AddCCAccount(thisframe, CustomerType.INDIVIDUAL);
 		ccac.setBounds(450, 20, 300, 380);
 		ccac.show();
 
@@ -236,8 +252,36 @@ public class CardFrm extends javax.swing.JFrame
             newaccount=false;
         }
 
-       
-        
+
+
+    }
+
+	void JButtonNewCompanyCCAC_actionPerformed(java.awt.event.ActionEvent event)
+	{
+		/*
+		 JDialog_AddPAcc type object is for adding personal information
+		 construct a JDialog_AddPAcc type object
+		 set the boundaries and show it
+		*/
+
+		JDialog_AddCCAccount ccac = new JDialog_AddCCAccount(thisframe,CustomerType.COMPANY);
+		ccac.setBounds(450, 20, 300, 380);
+		ccac.show();
+
+		if (newaccount){
+            // add row to table
+            rowdata[0] = clientName;
+            rowdata[1] = ccnumber;
+            rowdata[2] = expdate;
+            rowdata[3] = accountType;
+            rowdata[4] = "0";
+            model.addRow(rowdata);
+            JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
+            newaccount=false;
+        }
+
+
+
     }
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event)

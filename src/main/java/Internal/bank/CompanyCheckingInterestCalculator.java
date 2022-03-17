@@ -1,2 +1,3 @@
-package Internal.bank;public class CompanyCheckingInterestCalculator {
+package Internal.bank;
+public class CompanyCheckingInterestCalculator {
 }

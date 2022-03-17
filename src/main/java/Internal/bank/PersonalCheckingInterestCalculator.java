@@ -1,2 +1,4 @@
-package Internal.bank.ui;public class PersonalCheckingInterestCalculator {
+package Internal.bank;
+
+public class PersonalCheckingInterestCalculator {
 }
