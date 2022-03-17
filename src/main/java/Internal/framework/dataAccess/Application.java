@@ -126,7 +126,7 @@ public class Application {
         Account creditCardPronz =  creditCardApplication1.createConcreteAccount(AccountType.BRONZE,custome2r2,"test credit");
         accountDAO2.saveAccount(creditCardPronz);
 
-        creditCardApplication1.deposit("555",5000);
+        creditCardApplication1.deposit("test credit",5000);
         creditCardApplication1.buildReport();
 
      }

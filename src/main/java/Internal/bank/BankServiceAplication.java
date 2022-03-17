@@ -5,7 +5,7 @@ import Internal.bank.ui.SavingAccountConcreteFactory;
 import Internal.creditcard.ui.CardFrm;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
-    import Internal.framework.module.Account;
+import Internal.framework.module.Account;
 import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.Customer;
@@ -42,16 +42,16 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
 
     @Override
     public Account createConcreteAccount(AccountType type, Customer customer, String accountNumber) {
+        Account account;
+        if (type == AccountType.CHECKING) {
+            account = new CheckingAccountConcreteFactory().createAccount(accountNumber, customer);
 
-        if(type == AccountType.CHECKING)
-        {
-            return new CheckingAccountConcreteFactory().createAccount(accountNumber,customer);
-
-        }else{
-            return new SavingAccountConcreteFactory().createAccount(accountNumber,customer);
+        } else {
+            account = new SavingAccountConcreteFactory().createAccount(accountNumber, customer);
 
         }
-
+        getAccountDAO().saveAccount(account);
+        return account;
     }
 
 
@@ -78,10 +78,10 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
                         entry.getAmount());
             }
 
-            billstring+= "\n----------------------------------------\n";
-            billstring+=String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
+            billstring += "\n----------------------------------------\n";
+            billstring += String.format("%10s%10s%10.2f\n\n", "", "Current Balance:", account.getBalance());
         }
-                    System.out.println(billstring);
+        System.out.println(billstring);
         return billstring;
     }
 }

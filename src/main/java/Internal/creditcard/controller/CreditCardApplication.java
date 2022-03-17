@@ -30,16 +30,20 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
 
     @Override
     public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
+        Account account;
         if (accountType == AccountType.SILVER)
-            return new SilverCreditCardFactory().createAccount(accountNumber, customer);
+            account = new SilverCreditCardFactory().createAccount(accountNumber, customer);
         else if (accountType == AccountType.GOLDEN)
-            return new GoldCreditCardFactory().createAccount(accountNumber, customer);
-        return new BronzeCreditCardFactory().createAccount(accountNumber, customer);
+            account = new GoldCreditCardFactory().createAccount(accountNumber, customer);
+        else
+        account = new BronzeCreditCardFactory().createAccount(accountNumber, customer);
+        getAccountDAO().saveAccount(account);
+        return account;
     }
 
     @Override
     public String buildReport() {
-        String billstring = "Credit card report";
+        String billstring = " Credit card report \n";
         LocalDate todaydate = LocalDate.now();
         boolean hasdata = false;
         for (Account account : getAllAccounts()) {
@@ -51,7 +55,7 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
             double totalCharge = act.getTotalCharge();
             double newBalance = act.getNewBalance();
             double totalDue = act.getTotalDue();
-            billstring = String.format("Name= %s\r\n", cust.getClientName());
+            billstring += String.format("Name= %s\r\n", cust.getClientName());
             billstring += String.format("Address= %s, %s, %s, %s\r\n", cust.getStreet(), cust.getCity(), cust.getState(), cust.getZip());
             billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
             billstring += String.format("CC type= %s\r\n", account.getAccountType());
@@ -61,10 +65,12 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
             billstring += String.format("New balance = $ %f\r\n", newBalance);
             billstring += String.format("Total amount due = $ %f\r\n", totalDue);
             billstring += "\r\n";
-            billstring += "\r\n";
+            billstring +="------------------------------------------------\n";
+
         }
         if(!hasdata)
             billstring += "\n empty report";
+
 
         //System.out.println(billstring);
         return billstring;

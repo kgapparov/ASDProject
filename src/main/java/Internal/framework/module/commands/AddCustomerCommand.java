@@ -48,5 +48,5 @@ public class AddCustomerCommand implements CommandInterface{
             }
         }
         service.getStorage().getCustomerDAO().saveCustomer(customer);
-    }
+     }
 }
