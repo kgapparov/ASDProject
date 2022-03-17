@@ -5,4 +5,9 @@ public class SilverMinimumPaymentStrategy implements MinimumPaymentStrategy {
     public double calculateMinimumPayment(double balance) {
         return 0.12 * balance;
     }
+
+    @Override
+    public double MinimumPaymentRateValue() {
+        return 0.12;
+    }
 }

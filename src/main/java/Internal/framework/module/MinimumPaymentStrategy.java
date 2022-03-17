@@ -7,4 +7,6 @@ public interface MinimumPaymentStrategy {
         return prevBalance - totalCredit + totalCharge +mi * (prevBalance - totalCredit);
     }
 
+    public double MinimumPaymentRateValue();
+
 }

@@ -5,4 +5,9 @@ public class BronzeMinimumPaymentStrategy implements MinimumPaymentStrategy {
     public double calculateMinimumPayment(double balance) {
         return 0.14 * balance;
     }
+
+    @Override
+    public double MinimumPaymentRateValue() {
+        return 0.14;
+    }
 }

@@ -55,7 +55,7 @@ public class CreditCardAccount extends Account {
     }
 
     public double getNewBalance() {
-        return minimumPaymentStrategy.newBalanceCalculate(getPrevBalance(), getTotalCredit(), getTotalCharge(), minimumPaymentStrategy.calculateMinimumPayment(getBalance()) );
+        return minimumPaymentStrategy.newBalanceCalculate(getPrevBalance(), getTotalCredit(), getTotalCharge(), minimumPaymentStrategy.MinimumPaymentRateValue());
 
     }
 
