@@ -48,13 +48,13 @@ public class CreditCardAccount extends Account {
     }
 
     public double getNewBalance() {
-
-        return minimumPaymentStrategy.calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge(), minimumPaymentStrategy.calculateMinimumPayment(getBalance()) );
+        return minimumPaymentStrategy.newBalanceCalculate(getPrevBalance(), getTotalCredit(), getTotalCharge(), minimumPaymentStrategy.calculateMinimumPayment(getBalance()) );
 
     }
 
     public double getTotalDue() {
-        return minimumPaymentStrategy.calculateMinimumPayment(getNewBalance())* getNewBalance();
+        //System.out.println("Interest value " + super.getInterest().interestRateValue());
+        return super.getInterest().interestRateValue()* getNewBalance();
     }
 
 }
