@@ -298,7 +298,7 @@ public class CardFrm extends javax.swing.JFrame
 //		billFrm.setBounds(450, 20, 400, 350);
 //		billFrm.show();
 
-		getInvoker().getCommand(2).execute();
+		getInvoker().getCommand(5).execute();
 		JOptionPane.showMessageDialog(JButton_Interest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
 		invoker.getCommand(5).execute();
 
