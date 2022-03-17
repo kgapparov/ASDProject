@@ -1,5 +1,7 @@
 package Internal.creditcard.controller;
 
+import Internal.bank.ui.CheckingAccountConcreteFactory;
+import Internal.bank.ui.SavingAccountConcreteFactory;
 import Internal.creditcard.ui.CardFrm;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
@@ -30,6 +32,18 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
 
     @Override
     public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
+
+        Account account;
+        if (customer.getCustomerType() == CustomerType.COMPANY) {
+            account = new CompanyConcreteFactory().createAccount(accountType,accountNumber, customer);
+
+        } else {
+            account = new PersonalConcreteFactory().createAccount(accountType,accountNumber, customer);
+
+        }
+        getAccountDAO().saveAccount(account);
+        return account;
+      /*
         Account account;
         if (accountType == AccountType.SILVER)
             account = new SilverCreditCardFactory().createAccount(accountNumber, customer);
@@ -38,7 +52,7 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
         else
         account = new BronzeCreditCardFactory().createAccount(accountNumber, customer);
         getAccountDAO().saveAccount(account);
-        return account;
+        return account;*/
     }
 
     @Override
