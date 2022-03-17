@@ -92,6 +92,9 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
+		JButton_Interest.setText("Add Interest");
+		JPanel1.add(JButton_Interest);
+		JButton_Interest.setBounds(468,20,96,31);
 
 
 		JButton_GenBill.setActionCommand("jbutton");
@@ -104,6 +107,7 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_GenBill.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
 		JButton_Withdraw.addActionListener(lSymAction);
+		JButton_Interest.addActionListener(lSymAction);
 		
 	}
 
@@ -143,6 +147,7 @@ public class CardFrm extends javax.swing.JFrame
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
 	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
+	javax.swing.JButton JButton_Interest = new javax.swing.JButton();
 
 
 	void exitApplication()
@@ -186,6 +191,8 @@ public class CardFrm extends javax.swing.JFrame
 			Object object = event.getSource();
 			if (object == JButton_Exit)
 				JButtonExit_actionPerformed(event);
+			else if (object == JButton_Interest)
+				JButtonInterest_actionPerformed(event);
 			else if (object == JButton_NewCCAccount)
 				JButtonNewCCAC_actionPerformed(event);
 			else if (object == JButton_GenBill)
@@ -239,6 +246,18 @@ public class CardFrm extends javax.swing.JFrame
 		billFrm.setBounds(450, 20, 400, 350);
 		billFrm.show();
 	    
+	}
+
+	void JButtonInterest_actionPerformed(java.awt.event.ActionEvent event)
+	{
+//		JDialogGenBill billFrm = new JDialogGenBill(this, accountService.buildReport());
+//		billFrm.setBounds(450, 20, 400, 350);
+//		billFrm.show();
+
+		getInvoker().getCommand(2).execute();
+		JOptionPane.showMessageDialog(JButton_Interest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
+		invoker.getCommand(5).execute();
+
 	}
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)

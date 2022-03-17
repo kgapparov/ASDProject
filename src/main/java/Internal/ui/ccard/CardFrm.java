@@ -1,5 +1,10 @@
 package Internal.ui.ccard;
 
+import Internal.bank.BankServiceAplication;
+import Internal.bank.ui.BankApplicationForm;
+import Internal.framework.module.EmailSender;
+import Internal.framework.ui.ApplicationFrm;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JOptionPane;
@@ -61,11 +66,11 @@ public class CardFrm extends javax.swing.JFrame
 		
 		JButton_NewCCAccount.setText("Add Credit-card account");
 		JPanel1.add(JButton_NewCCAccount);
-		JButton_NewCCAccount.setBounds(24,20,192,33);
+		JButton_NewCCAccount.setBounds(10,20,160,33);
 		JButton_GenBill.setText("Generate Monthly bills");
 		JButton_GenBill.setActionCommand("jbutton");
 		JPanel1.add(JButton_GenBill);
-		JButton_GenBill.setBounds(240,20,192,33);
+		JButton_GenBill.setBounds(220,20,160,33);
 		JButton_Deposit.setText("Deposit");
 		JPanel1.add(JButton_Deposit);
 		JButton_Deposit.setBounds(468,104,96,33);
@@ -75,6 +80,9 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
+		JButton_Bank.setText("Add Bank Account");
+		JPanel1.add(JButton_Bank);
+		JButton_Bank.setBounds(400,20,150,31);
 
 
 		JButton_GenBill.setActionCommand("jbutton");
@@ -83,6 +91,7 @@ public class CardFrm extends javax.swing.JFrame
 		this.addWindowListener(aSymWindow);
 		SymAction lSymAction = new SymAction();
 		JButton_Exit.addActionListener(lSymAction);
+		JButton_Bank.addActionListener(lSymAction);
 		JButton_NewCCAccount.addActionListener(lSymAction);
 		JButton_GenBill.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
@@ -96,6 +105,7 @@ public class CardFrm extends javax.swing.JFrame
 	 * Sets the Look and Feel to the System Look and Feel.
 	 * Creates a new JFrame1 and makes it visible.
 	 *****************************************************/
+	static CardFrm newInstance = new CardFrm();
 	//update
 	static public void main(String args[])
 	{
@@ -110,7 +120,7 @@ public class CardFrm extends javax.swing.JFrame
 		    }
 		    
 			//Create a new instance of our application's frame, and make it visible.
-			(new CardFrm()).setVisible(true);
+			newInstance.setVisible(true);
 		} 
 		catch (Throwable t) {
 			t.printStackTrace();
@@ -125,6 +135,7 @@ public class CardFrm extends javax.swing.JFrame
 	javax.swing.JButton JButton_GenBill = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
 	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
+	javax.swing.JButton JButton_Bank = new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 
@@ -169,6 +180,8 @@ public class CardFrm extends javax.swing.JFrame
 			Object object = event.getSource();
 			if (object == JButton_Exit)
 				JButtonExit_actionPerformed(event);
+			else if (object == JButton_Bank)
+				JButtonOpenBank_actionPerformed(event);
 			else if (object == JButton_NewCCAccount)
 				JButtonNewCCAC_actionPerformed(event);
 			else if (object == JButton_GenBill)
@@ -218,10 +231,23 @@ public class CardFrm extends javax.swing.JFrame
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event)
 	{
+
+		//(new CardFrm()).setVisible(false);
 		JDialogGenBill billFrm = new JDialogGenBill();
 		billFrm.setBounds(450, 20, 400, 350);
 		billFrm.show();
 	    
+	}
+
+	void JButtonOpenBank_actionPerformed(java.awt.event.ActionEvent event)
+	{
+
+		BankServiceAplication application = new BankServiceAplication();
+		application.registerObserver(new EmailSender());
+		ApplicationFrm form = new BankApplicationForm();
+		application.run(application, form);
+		newInstance.setVisible(false);
+
 	}
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)
