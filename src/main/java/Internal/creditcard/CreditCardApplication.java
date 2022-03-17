@@ -6,7 +6,6 @@ import Internal.framework.module.Account;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.CreditCardAccount;
 import Internal.framework.module.Customer;
-import Internal.framework.module.Customer;
 import Internal.framework.ui.ApplicationFrm;
 
 import java.time.LocalDate;
