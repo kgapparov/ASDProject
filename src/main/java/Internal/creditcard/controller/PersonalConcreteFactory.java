@@ -26,7 +26,7 @@ public class PersonalConcreteFactory extends AccountFactory {
         else if (accountType == AccountType.BRONZE)
             return new BronzeAccount(customer, accountNumber, new BronzeInterest(), new BronzeMinimumPaymentStrategy());
         else if (accountType == AccountType.GOLDEN)
-            return new SilverAccount(customer, accountNumber, new GoldInterest(), new GoldMinimumPaymentStrategy());
+            return new GoldAccount(customer, accountNumber, new GoldInterest(), new GoldMinimumPaymentStrategy());
         else if (accountType == AccountType.CHECKING)
             return new CheckingAccount(customer, accountNumber, new PersonalCheckingInterestCalculator());
         else if (accountType == AccountType.SAVING)
