@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Account {
-    private  AccountType accountType;
+    private AccountType accountType;
     private Customer customer;
     private String accountNumber;
     private List<NotificationStrategy> notificationStrategies = new ArrayList<>();
@@ -20,6 +20,12 @@ public abstract class Account {
         this.accountNumber = accountNumber;
         this.interest = interest;
         this.accountType = accountType;
+    }
+
+    public Account(Customer customer, String accountNumber, InterestCalculator interest) {
+        this.customer = customer;
+        this.accountNumber = accountNumber;
+        this.interest = interest;
     }
 
     public InterestCalculator getInterest() {
@@ -38,7 +44,9 @@ public abstract class Account {
         return interestState;
     }
 
-    public String getOperationName() { return operationName; }
+    public String getOperationName() {
+        return operationName;
+    }
 
     public void addNotificationStrategy(NotificationStrategy notificationStrategy) {
         this.notificationStrategies.add(notificationStrategy);
@@ -52,11 +60,6 @@ public abstract class Account {
         this.interest = interestCalculator;
     }
 
-    public Account(Customer customer, String accountNumber,InterestCalculator interest) {
-        this.customer = customer;
-        this.accountNumber = accountNumber;
-        this.interest = interest;
-    }
 
     public void setInterest(InterestCalculator interest) {
         this.interest = interest;
@@ -79,8 +82,8 @@ public abstract class Account {
     }
 
     public void addInterest() {
-        double interstAmt =0;
-         if (interest != null) {
+        double interstAmt = 0;
+        if (interest != null) {
             interstAmt = interest.calculateInterest(this);
         }
         AccountEntry entry = new AccountEntry(interstAmt, "interest", "", "");
@@ -129,6 +132,10 @@ public abstract class Account {
         return entryList;
     }
 
-    public abstract String getAccountType();
+    public String getAccountType() {
+        return accountType.name();
+    }
+
+    ;
 
 }

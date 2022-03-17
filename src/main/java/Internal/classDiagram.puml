@@ -76,4 +76,6 @@ Command <|-- WidthdrawCommand
 Invoker  -- Command
 ApplicationFrm -- Invoker
 ApplicationFrm -- AccountServiceApplicationFactory
+
+
 @enduml

@@ -7,9 +7,9 @@ import Internal.framework.controller.interest.interestCalculators.PersonalSaving
 import Internal.framework.module.*;
 
 
-public class SavingAccountConcreteFactory extends AccountFactory {
+public class SavingAccountConcreteFactory /*extends AccountFactory*/ {
 
-    public String getAccountType() {
+   /* public String getAccountType() {
         return AccountType.CHECKING.name();
     }
 
@@ -21,5 +21,5 @@ public class SavingAccountConcreteFactory extends AccountFactory {
         else
             return new SavingAccount(customer, accountNumber, new PersonalSavingInterestCalculator());
 
-    }
+    }*/
 }

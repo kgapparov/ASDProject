@@ -10,6 +10,10 @@ public class Application {
         application.registerObserver(new BankEmailSender());
         ApplicationFrm form = new BankApplicationForm();
         application.run(application, form);
+
+
+
+
     }
 
 }

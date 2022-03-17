@@ -13,16 +13,23 @@ public class CreditCardAccount extends Account {
 
     }
 
-    public String getExpireDate() { return expireDate;}
-
-    public MinimumPaymentStrategy getMinimumPaymentStrategy() { return minimumPaymentStrategy; }
-
-    public void setExpireDate(String expireDate) { this.expireDate = expireDate; }
-
-    @Override
-    public String getAccountType() {
-        return null;
+    public CreditCardAccount(Customer customer, String accountNumber, InterestCalculator interest) {
+        super(customer, accountNumber, interest);
     }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public MinimumPaymentStrategy getMinimumPaymentStrategy() {
+        return minimumPaymentStrategy;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+
 
     public double getPrevBalance() {
         LocalDate todaydate = LocalDate.now();

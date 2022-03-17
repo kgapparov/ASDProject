@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AccountServiceApplicationFactory implements AccountService, StateNotifyer{
+public abstract class AccountServiceApplicationFactory implements AccountService {
     private AccountDAO accountDAO;
 
     private EnvironmentType envType;
@@ -54,13 +54,13 @@ public abstract class AccountServiceApplicationFactory implements AccountService
 
     public abstract void init(EnvironmentType envType);
 
-    public Account createAccount(AccountType type, String accountNumber, String customerName)
+  /*  public Account createAccount(AccountType type, String accountNumber, String customerName)
     {
         Optional<Customer> customer = Optional.ofNullable(getStorage().getCustomerDAO().loadCustomer(customerName));
         Account acc = customer.map(x -> createConcreteAccount(type, x, accountNumber)).get();
         accountDAO.saveAccount(acc);
         return acc;
-    }
+    }*/
 
     public abstract Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber);
 
