@@ -7,5 +7,10 @@ public class GoldInterest extends InterestCalculator {
         return account.getBalance()* 0.06;
     }
 
+    @Override
+    public double interestRateValue() {
+        return 0.06;
+    }
+
 }
 

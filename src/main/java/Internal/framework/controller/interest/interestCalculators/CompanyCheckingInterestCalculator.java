@@ -9,4 +9,5 @@ public class CompanyCheckingInterestCalculator extends InterestCalculator {
     public double calculateInterest(Account account) {
         return handleInterest(account);
     }
+
 }

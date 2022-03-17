@@ -7,4 +7,9 @@ public class SilverInterest extends InterestCalculator {
         return account.getBalance()* 0.08;
     }
 
+    @Override
+    public double interestRateValue() {
+        return 0.08;
+    }
+
 }
