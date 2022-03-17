@@ -1,9 +1,11 @@
 package Internal.creditcard.ui;
 
+import Internal.creditcard.commands.ShowCreditAccountRowCommand;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.command.Invoker;
 import Internal.framework.module.AccountType;
 import Internal.framework.module.CustomerType;
+import Internal.framework.module.commands.AddInterestCommand;
 import Internal.ui.ccard.JDialog_AddCompAcc;
 
 import javax.swing.*;
@@ -32,10 +34,22 @@ public class CardFrm extends javax.swing.JFrame
 	String clientName,street,city, zip, state,amountDeposit,expdate, ccnumber;
 	AccountType accountType;
     boolean newaccount;
-    private final DefaultTableModel model;
-    private final JTable JTable1;
+    private DefaultTableModel model;
+    private  JTable JTable1;
 	CardFrm thisframe;
-    private final Object[] rowdata;
+    private  Object[] rowdata;
+
+	public DefaultTableModel getModel() {
+		return model;
+	}
+
+	public void setModel(DefaultTableModel model) {
+		this.model = model;
+	}
+
+	public CardFrm(DefaultTableModel model) throws HeadlessException {
+		this.model = model;
+	}
 
 	private final Invoker invoker = new Invoker();
 
@@ -294,13 +308,12 @@ public class CardFrm extends javax.swing.JFrame
 
 	void JButtonInterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
-//		JDialogGenBill billFrm = new JDialogGenBill(this, accountService.buildReport());
-//		billFrm.setBounds(450, 20, 400, 350);
-//		billFrm.show();
 
-		getInvoker().getCommand(5).execute();
+		invoker.setCommand(3, new AddInterestCommand(accountService));
 		JOptionPane.showMessageDialog(JButton_Interest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-		invoker.getCommand(5).execute();
+		invoker.getCommand(3).execute();
+		invoker.setCommand(4, new ShowCreditAccountRowCommand(this));
+		invoker.getCommand(4).execute();
 
 	}
 
@@ -317,10 +330,10 @@ public class CardFrm extends javax.swing.JFrame
 		    dep.show();
     		
 		    // compute new amount
-            long deposit = Long.parseLong(amountDeposit);
+            double deposit = Double.parseDouble(amountDeposit);
             String samount = (String)model.getValueAt(selection, 4);
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount+deposit;
+            double currentamount = Double.parseDouble(samount);
+		    double newamount=currentamount+deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 4);
 		}
 		
