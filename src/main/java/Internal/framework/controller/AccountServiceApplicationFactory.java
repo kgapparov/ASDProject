@@ -2,6 +2,7 @@ package Internal.framework.controller;
 
 import Internal.bank.CheckingAccount;
 import Internal.bank.SavingAccount;
+import Internal.creditcard.ui.CardFrm;
 import Internal.framework.dataAccess.AccountDAO;
 import Internal.framework.dataAccess.MemoryStorageFactory;
 import Internal.framework.dataAccess.StorageFactory;
@@ -37,7 +38,7 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         return envType;
     }
 
-    private List<Observer> observers = new ArrayList<>();
+    private final List<Observer> observers = new ArrayList<>();
 
     public void setEnvType(EnvironmentType envType) {
         if (envType == EnvironmentType.MEMORY) {
@@ -48,6 +49,8 @@ public abstract class AccountServiceApplicationFactory implements AccountService
         }
     }
     public abstract void createCommands(ApplicationFrm form, AccountServiceApplicationFactory service);
+
+    public abstract void createCommands(CardFrm form, AccountServiceApplicationFactory service);
 
     public abstract void init(EnvironmentType envType);
 
@@ -145,4 +148,25 @@ public abstract class AccountServiceApplicationFactory implements AccountService
             System.exit(1);
         }
     }
+    public void run (AccountServiceApplicationFactory service, CardFrm form) {
+        try {
+            // Add the following code if you want the Look and Feel
+            // to be set to the Look and Feel of the native system.
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Create a new instance of our application's frame, and make it visible.
+            service.createCommands(form, service);
+            service.init(EnvironmentType.MEMORY);
+            form.setAccountService(service);
+            form.setVisible(true);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            //Ensure the application exits with an error condition.
+            System.exit(1);
+        }
+    }
+
 }

@@ -1,11 +1,14 @@
-package Internal.creditcard;
+package Internal.creditcard.controller;
 
+import Internal.creditcard.ui.CardFrm;
 import Internal.framework.controller.AccountServiceApplicationFactory;
 import Internal.framework.controller.EnvironmentType;
-import Internal.framework.module.Account;
-import Internal.framework.module.AccountType;
-import Internal.framework.module.CreditCardAccount;
-import Internal.framework.module.Customer;
+import Internal.framework.controller.command.ReportCommand;
+import Internal.framework.dataAccess.BronzeCreditCardFactory;
+import Internal.framework.dataAccess.GoldCreditCardFactory;
+import Internal.framework.dataAccess.SilverCreditCardFactory;
+import Internal.framework.module.*;
+import Internal.framework.module.commands.*;
 import Internal.framework.ui.ApplicationFrm;
 
 import java.time.LocalDate;
@@ -17,13 +20,21 @@ public class CreditCardApplication extends AccountServiceApplicationFactory {
     }
 
     @Override
-    public void init(EnvironmentType envType) {
+    public void createCommands(CardFrm form, AccountServiceApplicationFactory service) {
+    }
 
+    @Override
+    public void init(EnvironmentType envType) {
+        setEnvType(envType);
     }
 
     @Override
     public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
-        return null;
+        if (accountType == AccountType.SILVER)
+            return new SilverCreditCardFactory().createAccount(accountNumber, customer);
+        else if (accountType == AccountType.GOLDEN)
+            return new GoldCreditCardFactory().createAccount(accountNumber, customer);
+        return new BronzeCreditCardFactory().createAccount(accountNumber, customer);
     }
 
     @Override
