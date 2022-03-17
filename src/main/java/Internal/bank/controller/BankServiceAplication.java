@@ -41,7 +41,6 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
 
     @Override
     public Account createConcreteAccount(AccountType accountType, Customer customer, String accountNumber) {
-
         Account account;
         if (customer.getCustomerType() == CustomerType.COMPANY) {
             account = new CompanyConcreteFactory().createAccount(accountType,accountNumber, customer);
@@ -52,17 +51,6 @@ public class BankServiceAplication extends AccountServiceApplicationFactory {
         }
         getAccountDAO().saveAccount(account);
         return account;
-
-        /*Account account;
-        if (type == AccountType.CHECKING) {
-            account = new CheckingAccountConcreteFactory().createAccount(accountNumber, customer);
-
-        } else {
-            account = new SavingAccountConcreteFactory().createAccount(accountNumber, customer);
-
-        }
-        getAccountDAO().saveAccount(account);
-        return account;*/
     }
 
 

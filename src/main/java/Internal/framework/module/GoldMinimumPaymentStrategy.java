@@ -1,14 +1,16 @@
 package Internal.framework.module;
 
+import Internal.framework.controller.interest.interestCalculators.InterestCalculatorsRateEnum;
+
 public class GoldMinimumPaymentStrategy implements MinimumPaymentStrategy {
     @Override
     public double calculateMinimumPayment(double balance) {
-        return 0.1 * balance;
+        return InterestCalculatorsRateEnum.MPGOLD.getValue() * balance;
     }
 
     @Override
     public double MinimumPaymentRateValue() {
-        return 0.1;
+        return InterestCalculatorsRateEnum.MPGOLD.getValue();
     }
 }
 
